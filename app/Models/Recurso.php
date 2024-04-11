@@ -11,7 +11,7 @@ class Recurso extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'empresa_id','tipo_recurso_id', 'nombre', 'estado_id',
+        'empresa_id','tipo_recurso_id', 'nombre', 'estado_id', 'time_format_reserve',
     ];
 
     public function empresa()
@@ -47,4 +47,5 @@ class Recurso extends Model
         ->whereDate('fecha_fin','<=', $fecha_fin)
         ->get();
     }
+
 }

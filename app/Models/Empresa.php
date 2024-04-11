@@ -1,25 +1,24 @@
 <?php
 
 namespace App\Models;
-
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
+use DateTime;
 
 class Empresa extends Model
 {
     protected $fillable = [
-        'nombre', 'direccion', 'telefono', 'email', 'industria_id', 'fundacion', 'ingresos', 'sitio_web', 'descripcion',
+        'nombre', 'direccion', 'telefono', 'email', 'industria_id', 'fundacion', 'ingresos', 'sitio_web', 'descripcion', 'time_start', 'time_off'
     ];
 
     public function reservas()
     {
-        return $this->hasMany(Reserva::class);
+        return $this->hasMany(Reserva::class)->get();
     }
 
     public function recursos()
     {
-        return $this->hasMany(Recurso::class);
+        return $this->hasMany(Recurso::class)->get();
     }
 
     /**
@@ -50,7 +49,23 @@ class Empresa extends Model
      * @return array
      */
     public function getAvailableHours (){
-        return array();
+        $time_start = new DateTime($this->time_start);
+        $time_off = new DateTime($this->time_off);
+        $nH= $time_off->diff($time_start)->h;
+        $tStart = $this->time_start;
+        $availableHours=[];
+        if ($nH == 0 ){
+            $nH = 24;
+            $tStart = "00:00";
+        }
+        if ($nH > 0) {
+            for($i = 0; $i<$nH ; $i++){
+                $availableHours[$i]= $tStart;
+                $time_start->modify('+1 hour'); // Incrementamos la hora en 1 hora
+                $tStart = $time_start->format('H:i:s'); // Actualizamos la hora de inicio
+            }
+        }
+        return $availableHours;
     }
 
     /**
@@ -59,7 +74,5 @@ class Empresa extends Model
      *
      * @return void
      */
-    public function getformatTimeReserves (){
-        return array();
-    }
+
 }

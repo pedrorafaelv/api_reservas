@@ -19,6 +19,7 @@ class Recursos extends Migration
             $table->unsignedBigInteger('tipo_recurso_id');
             $table->string('nombre');
             $table->unsignedBigInteger('estado_id');
+            $table->unsignedInteger('format_time_reserve');
             $table->foreign('empresa_id')->references('id')->on('empresas')->onDelete('cascade');
             $table->foreign('estado_id')->references('id')->on('estados')->onDelete('cascade');
             $table->foreign('tipo_recurso_id')->references('id')->on('tipo_recursos')->onDelete('cascade');

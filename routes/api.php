@@ -138,6 +138,11 @@ Route::get('Reserva/getReservaXRecurso/{recurso_id}', [ReservaController::class,
 /**Actualizar un reserva */
 Route::get('Reserva/getReservaXEmpresa/{empresa_id}', [ReservaController::class, 'getReservaXEmpresa']);
 
+/** Crea todas los registros de reservas para una empresa en una fecha determinada */
+Route::get('Reserva/createReservasXdia/{empresa_id}/{fecha}', [ReservaController::class, 'createReservasXdia']);
+
+/** Crea reserva por horas */
+Route::get('Reserva/createReservasXhoras/{empresa_id}/{recurso_id}/{fecha_inicio}/{fecha_fin}/{estado_id}/{cliente_id}', [ReservaController::class, 'createReservasXhoras']);
 /**-------------------------------------------------------------------------------------- */
 
 /** Cualquier otra ruta que no esté definida */
