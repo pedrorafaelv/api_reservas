@@ -1,11 +1,14 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use  App\Http\Requests\Recurso\PutRequest;
+use  App\Http\Requests\Recurso\StoreRequest;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-
-
+use App\Models\Recurso;
+use App\Models\Empresa;
+use App\Models\TipoRecurso;
+use App\Models\Estado;
 class RecursoController extends Controller
 {
     /**
@@ -15,8 +18,11 @@ class RecursoController extends Controller
      */
     public function index()
     {
-        echo 'no muestra nada ';
-        view('welcome');
+        $empresas = Empresa::pluck('nombre', 'id')->toArray();
+        $estados = Estado::pluck('nombre', 'id')->toArray();
+        $tiporecursos = TipoRecurso::pluck('nombre', 'id')->toArray();
+        $recursos= Recurso::paginate(4);
+        return view('recurso.index', compact('recursos', 'empresas', 'tiporecursos', 'estados'));
     }
 
     /**
@@ -26,7 +32,10 @@ class RecursoController extends Controller
      */
     public function create()
     {
-        //
+        $empresas = Empresa::pluck('nombre', 'id')->toArray();
+        $estados = Estado::pluck('nombre', 'id')->toArray();
+        $tiporecursos = TipoRecurso::pluck('nombre', 'id')->toArray();
+        return view('recurso.create', compact('empresas','tiporecursos', 'estados' ));
     }
 
     /**
@@ -35,9 +44,15 @@ class RecursoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
-        //
+        // dd($request->all());
+        $recurso = new Recurso();
+        $recurso->fill($request->all());
+        $exito = $recurso->save();
+        if (!$exito) {
+            // Si no se pudo guardar la empresa, redireccionar con un mensaje de error
+        }
     }
 
     /**
@@ -48,40 +63,47 @@ class RecursoController extends Controller
      */
     public function show($id)
     {
-        //
+        $empresas = Empresa::pluck('nombre', 'id')->toArray();
+        $estados = Estado::pluck('nombre', 'id')->toArray();
+        $tiporecursos = TipoRecurso::pluck('nombre', 'id')->toArray();
+        return view('recurso.show', compact('empresas','tiporecursos', 'estados' ));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  App\Models\Recurso  $recurso
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Recurso $recurso)
     {
-        //
+        //  dd($recurso);
+        $empresas = Empresa::pluck('nombre', 'id')->toArray();
+        $estados = Estado::pluck('nombre', 'id')->toArray();
+        $tiporecursos = TipoRecurso::pluck('nombre', 'id')->toArray();
+        return view('recurso.edit', compact('empresas','tiporecursos', 'estados', 'recurso' ));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  App\Models\Recurso  $recurso
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(PutRequest $request, Recurso $recurso)
     {
-        //
+        $recurso->update($request->validated());
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  App\Models\Recurso  $recurso
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Recurso $recurso)
     {
-        //
+        $recurso->delete();
     }
 }

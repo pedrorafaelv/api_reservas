@@ -4,6 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Reserva;
+use App\Models\Recurso;
+use App\Models\Empresa;
+use App\Models\Cliente;
+use App\Models\estado;
+use Carbon\Carbon;
 
 class ReservaController extends Controller
 {
@@ -14,8 +19,12 @@ class ReservaController extends Controller
      */
     public function index()
     {
-        $reservas = Reserva::all();
-        return view('reservas.index', compact('reservas'));
+        $empresas = Empresa::pluck('nombre', 'id')->toArray();
+        $estados = Estado::pluck('nombre', 'id')->toArray();
+        $recursos = Recurso::pluck('nombre', 'id')->toArray();
+        $clientes = Cliente::pluck('nombre', 'id')->toArray();
+        $reservas = Reserva::paginate(10);
+        return view('reserva.index', compact('reservas', 'empresas', 'estados','recursos', 'clientes'));
     }
 
     /**
@@ -25,7 +34,11 @@ class ReservaController extends Controller
      */
     public function create()
     {
-        return view('reservas.create');
+        $empresas = Empresa::pluck('nombre', 'id')->toArray();
+        $estados = Estado::pluck('nombre', 'id')->toArray();
+        $recursos = Recurso::pluck('nombre', 'id')->toArray();
+        $clientes = Cliente::pluck('nombre', 'id')->toArray();
+        return view('reserva.create', compact('empresas', 'estados', 'recursos', 'clientes'));
     }
 
     /**
@@ -36,27 +49,23 @@ class ReservaController extends Controller
      */
     public function store(Request $request)
     {
-        //
         // Validar los datos del formulario
-
         // Crear una nueva reserva
         $reserva = new Reserva();
         $reserva->fill($request->all());
         $reserva->save();
-
-        return redirect()->route('reservas.index')->with('success', 'Reserva creada correctamente.');
-
+        return redirect()->route('reserva.index')->with('success', 'Reserva creada correctamente.');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Reserva
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Reserva $reserva)
     {
-        //
+        return view('reserva.show', compact('reserva'));
     }
 
     /**
@@ -65,9 +74,16 @@ class ReservaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Reserva $reserva)
     {
-        //
+        // dd($reserva);
+        $empresas = Empresa::pluck('nombre', 'id')->toArray();
+        $estados = Estado::pluck('nombre', 'id')->toArray();
+        $recursos = Recurso::pluck('nombre', 'id')->toArray();
+        $clientes = Cliente::pluck('nombre', 'id')->toArray();
+        $reserve = new Reserva();
+        $reserve->fecha_inicio = Carbon::parse($reserva->feha_inicio);
+        return view('reserva.edit', compact('empresas','estados','recursos','clientes','reserva', 'reserve'));
     }
 
     /**
@@ -77,9 +93,13 @@ class ReservaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Reserva $reserva)
     {
-        //
+        //  return route('reserva.create');
+        $reserva->update($request->validated());
+         return redirect('reserva.create');
+        //  return redirect()->route('reserva.create')
+
     }
 
     /**
@@ -88,8 +108,9 @@ class ReservaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Reserva $reserva)
     {
-        //
+        $reserva->delete();
+        return redirect('reserva.index');
     }
 }

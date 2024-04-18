@@ -18,8 +18,8 @@ class ClienteController extends Controller
      */
     public function index()
     {
-         $clientes = Cliente::all();
-        return  view('cliente.index')->with('clientes', $clientes);
+        $clientes = Cliente::paginate(4);
+        return  view('cliente.index', compact('clientes'));
     }
 
     /**
@@ -29,11 +29,7 @@ class ClienteController extends Controller
      */
     public function create(Request $request)
     {
-        // $this->store($request);
-        // Debugbar::error('Error!');
-
         return view('cliente.create');
-
     }
 
     /**
@@ -44,7 +40,6 @@ class ClienteController extends Controller
      */
     public function store(StoreRequest $request)
     {
-
         // Crear una nueva cliente
         $cliente = new Cliente();
         $cliente->fill($request->all());
@@ -52,8 +47,7 @@ class ClienteController extends Controller
         if (!$exito) {
             // Si no se pudo guardar la cliente, redireccionar con un mensaje de error
         }
-         return redirect()->route('clientes.show')->with('success', 'Cliente creado correctamente.');
-
+         return view('cliente.show', $cliente);
     }
 
     /**
@@ -62,9 +56,9 @@ class ClienteController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show( Cliente $cliente)
     {
-        //
+        return view('cliente.show', compact('cliente'));
     }
 
     /**
@@ -73,31 +67,33 @@ class ClienteController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Cliente $cliente)
     {
-        //
+        // dd($cliente);
+        return view('cliente.edit',compact('cliente'));
+
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  int  App\Models\Cliente
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Cliente $cliente)
     {
-        //
+        $cliente->update($request->validated());
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Models\Cliente  $cliente
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Cliente $cliente)
     {
-        //
+        $cliente->delete();
     }
 }

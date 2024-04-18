@@ -1,9 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use  App\Http\Requests\Estado\PutRequest;
+use  App\Http\Requests\Estado\StoreRequest;
 use Illuminate\Http\Request;
-
+use App\Models\Estado;
 class EstadoController extends Controller
 {
     /**
@@ -13,7 +14,8 @@ class EstadoController extends Controller
      */
     public function index()
     {
-        //
+        $estados = Estado::paginate(4);
+        return view('estado.index', compact('estados'));
     }
 
     /**
@@ -23,7 +25,9 @@ class EstadoController extends Controller
      */
     public function create()
     {
-        //
+
+        return view('estado.create');
+
     }
 
     /**
@@ -32,20 +36,25 @@ class EstadoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
-        //
+        $estado = new Estado();
+        $estado->fill($request->all());
+        $exito = $estado->save();
+        if (!$exito) {
+            // Si no se pudo guardar la empresa, redireccionar con un mensaje de error
+        }
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  Estado \App\Models\Estado $estado
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Estado $estado)
     {
-        //
+        return view('estado.show', compact('estado'));
     }
 
     /**
@@ -54,31 +63,32 @@ class EstadoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Estado $estado)
     {
-        //
+        return view('estado.edit', compact('estado'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  estado  App\Models\Estado
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(PutRequest $request, Estado $estado)
     {
-        //
+        $estado->update($request->validated());
+
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  estado  App\Models\Estado
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Estado $estado)
     {
-        //
+        $estado->delete();
     }
 }

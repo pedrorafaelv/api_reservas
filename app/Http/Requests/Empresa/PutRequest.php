@@ -4,7 +4,7 @@ namespace App\Http\Requests\Empresa;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreRequest extends FormRequest
+class PutRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,16 +23,13 @@ class StoreRequest extends FormRequest
      */
     public function rules()
     {
-        // // dd($request);
-
         return [
-            'nombre' =>[ 'required','string', 'min:5','max:255','unique:empresas,nombre'],
+            'nombre' =>[ 'required','string', 'min:5','max:255'],
             'direccion' => ['required','string','max:255'],
             'telefono' => ['required','string','max:20'],
-            'email' => ['required','string','email','max:255|unique:empresas,email'],
+            'email' => ['required','string','email','max:255'],
             'industria_id' => ['required','numeric','exists:industrias,id'],
             'fundacion' => ['required','date'],
         ];
-        //  return true;
     }
 }

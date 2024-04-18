@@ -1,9 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\Industria;
 use Illuminate\Http\Request;
 
+use App\Http\Requests\Industria\StoreRequest;
+use App\Http\Requests\Industria\PutRequest;
 class IndustriaController extends Controller
 {
     /**
@@ -13,7 +15,8 @@ class IndustriaController extends Controller
      */
     public function index()
     {
-        //
+        $industrias = Industria::paginate(4);
+        return view('industria.index', compact('industrias'));
     }
 
     /**
@@ -23,7 +26,8 @@ class IndustriaController extends Controller
      */
     public function create()
     {
-        //
+        return view('industria.create');
+
     }
 
     /**
@@ -32,9 +36,16 @@ class IndustriaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
         //
+        $industria = new Industria();
+        $industria->fill($request->all());
+        $exito = $industria->save();
+        if (!$exito) {
+            // Si no se pudo guardar la empresa, redireccionar con un mensaje de error
+        }
+        //  return
     }
 
     /**
@@ -43,9 +54,9 @@ class IndustriaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Industria $industria)
     {
-        //
+        return view('industria.show', compact('industria'));
     }
 
     /**
@@ -54,31 +65,34 @@ class IndustriaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Industria $industria)
     {
-        //
+        //   dd( $industria);
+         $industria = Industria::find($industria->id);
+        // return view('industria.edit', compact('industria'));
+        return view('industria.edit', compact('industria'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  App\Models\Industria
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(PutRequest $request, Industria $industria)
     {
-        //
+        $industria->update($request->validated());
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  App\Models\Industria
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Industria $industria)
     {
-        //
+        $industria->delete();
     }
 }
