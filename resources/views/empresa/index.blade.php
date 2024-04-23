@@ -1,6 +1,8 @@
 @extends('layout')
 @section('content')
  <h3>Listado de Empresas</h3>
+ <a href="{{ route("empresa.create")}}">Nueva Empresa</a>
+
  <table>
     <thead>
         <td>Id</td>
@@ -19,11 +21,15 @@
           <td>{{$empresa->direccion}}</td>
           <td>{{$empresa->telefono}}</td>
           <td>{{$empresa->email}}</td>
-          <td>{{$industrias[$empresa->industria_id]}}</td>
+          <td>{{$empresa->industria->nombre}}</td>
           <td>
             <a href="{{ route("empresa.edit", $empresa->id)}}">Editar</a>
-            <a href="{{ route("empresa.create")}}">Crear</a>
-            <a href="{{ route("empresa.destroy", $empresa->id)}}">Eliminar</a>
+            <a href="{{ route("empresa.show", $empresa->id)}}">Ver</a>
+            <form action="{{ route("empresa.destroy", $empresa->id)}}" method="POST">
+                @csrf
+                @method('delete')
+                <button type="submit">Eliminar</button>
+            </form>
         </td>
         </tr>
             @endforeach

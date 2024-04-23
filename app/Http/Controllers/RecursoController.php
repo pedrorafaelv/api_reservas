@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 use  App\Http\Requests\Recurso\PutRequest;
 use  App\Http\Requests\Recurso\StoreRequest;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use App\Models\Recurso;
 use App\Models\Empresa;
 use App\Models\TipoRecurso;
@@ -18,11 +16,11 @@ class RecursoController extends Controller
      */
     public function index()
     {
-        $empresas = Empresa::pluck('nombre', 'id')->toArray();
-        $estados = Estado::pluck('nombre', 'id')->toArray();
-        $tiporecursos = TipoRecurso::pluck('nombre', 'id')->toArray();
+        // $empresas = Empresa::pluck('nombre', 'id')->toArray();
+        // $estados = Estado::pluck('nombre', 'id')->toArray();
+        // $tiporecursos = TipoRecurso::pluck('nombre', 'id')->toArray();
         $recursos= Recurso::paginate(4);
-        return view('recurso.index', compact('recursos', 'empresas', 'tiporecursos', 'estados'));
+        return view('recurso.index', compact('recursos'));
     }
 
     /**
@@ -51,22 +49,25 @@ class RecursoController extends Controller
         $recurso->fill($request->all());
         $exito = $recurso->save();
         if (!$exito) {
+            return false;
             // Si no se pudo guardar la empresa, redireccionar con un mensaje de error
         }
+        $request->session()->flash('status', 'Recurso creado exitosamente');
+        return redirect('recurso.index');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  Recurso App\Models\Recurso
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Recurso $recurso)
     {
-        $empresas = Empresa::pluck('nombre', 'id')->toArray();
-        $estados = Estado::pluck('nombre', 'id')->toArray();
-        $tiporecursos = TipoRecurso::pluck('nombre', 'id')->toArray();
-        return view('recurso.show', compact('empresas','tiporecursos', 'estados' ));
+        // $empresas = Empresa::pluck('nombre', 'id')->toArray();
+        // $estados = Estado::pluck('nombre', 'id')->toArray();
+        // $tiporecursos = TipoRecurso::pluck('nombre', 'id')->toArray();
+        return view('recurso.show', compact('recurso'));
     }
 
     /**
@@ -94,6 +95,8 @@ class RecursoController extends Controller
     public function update(PutRequest $request, Recurso $recurso)
     {
         $recurso->update($request->validated());
+        $request->session()->flash('status', 'Recurso actualizado exitosamente');
+        return redirect('recurso.index');
     }
 
     /**
@@ -105,5 +108,6 @@ class RecursoController extends Controller
     public function destroy(Recurso $recurso)
     {
         $recurso->delete();
+        return redirect('recurso.index')->with('status', 'Recurso eliminado exitosamente');
     }
 }

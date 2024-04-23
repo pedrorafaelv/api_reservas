@@ -23,9 +23,9 @@
     <label for="fundacion">Fundación</label>
     <input type="date" name="fundacion" id="fundacion" value = {{$empresa->fundacion}}>
     <label for="ingresos">Ingreso</label>
-    <input type="text" name="ingreso" id="ingreso" value = {{$empresa->ingreso}}>
+    <input type="text" name="ingreso" id="ingreso" value = {{$empresa->ingresos}}>
     <label for="sitio_web">Site Web</label>
-    <input type="text" name="sitio_web" id="sitio_web" value = {{$empresa->siteweb}}>
+    <input type="text" name="sitio_web" id="sitio_web" value = {{$empresa->sitio_web}}>
     <label for="descripcion">Descripción:</label>
     <input type="text" name="descripcion" id="descripcion" value = {{$empresa->descripcion}}>
     <label for="timestart">Time Start:</label>

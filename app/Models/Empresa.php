@@ -20,6 +20,11 @@ class Empresa extends Model
     {
         return $this->hasMany(Recurso::class)->get();
     }
+    public function industria(){
+
+        return $this->belongsTo(Industria::class);
+
+    }
 
     /**
      * obtiene todos los dias de la semana que no estan disponibles para

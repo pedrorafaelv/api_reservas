@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 use App\Models\Industria;
-use Illuminate\Http\Request;
-
 use App\Http\Requests\Industria\StoreRequest;
 use App\Http\Requests\Industria\PutRequest;
 class IndustriaController extends Controller
@@ -27,7 +25,6 @@ class IndustriaController extends Controller
     public function create()
     {
         return view('industria.create');
-
     }
 
     /**
@@ -38,25 +35,26 @@ class IndustriaController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        //
-        $industria = new Industria();
-        $industria->fill($request->all());
-        $exito = $industria->save();
+        $industrium = new Industria();
+        $industrium->fill($request->all());
+        $exito = $industrium->save();
         if (!$exito) {
-            // Si no se pudo guardar la empresa, redireccionar con un mensaje de error
+            // return redirect('industria.show')->with('industria', $industria);
         }
-        //  return
+        $request->session()->flash('status', 'Industria creada correctamente');
+        return view('industria.show',compact ('industrium'));
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  Industria \App\Models\Industria
      * @return \Illuminate\Http\Response
      */
-    public function show(Industria $industria)
+    public function show(Industria $industrium)
     {
-        return view('industria.show', compact('industria'));
+        //  dd($industrium);
+        return view('industria.show', compact('industrium'));
     }
 
     /**
@@ -65,34 +63,37 @@ class IndustriaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Industria $industria)
+    public function edit(Industria $industrium)
     {
-        //   dd( $industria);
-         $industria = Industria::find($industria->id);
-        // return view('industria.edit', compact('industria'));
-        return view('industria.edit', compact('industria'));
-    }
+        //   dd( $industrium);
+         $industria = Industria::find($industrium->id);
+         // return view('industria.edit', compact('industria'));
+         return view('industria.edit', compact('industria'));
+        }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  App\Models\Industria
-     * @return \Illuminate\Http\Response
-     */
-    public function update(PutRequest $request, Industria $industria)
-    {
-        $industria->update($request->validated());
+        /**
+         * Update the specified resource in storage.
+         *
+         * @param  \Illuminate\Http\Request  $request
+         * @param  App\Models\Industria
+         * @return \Illuminate\Http\Response
+         */
+        public function update(PutRequest $request, Industria $industrium)
+        {
+            $industrium->update($request->validated());
+            $request->session()->flash('status', 'Industria actualizada con éxito');
+         return redirect()->route('industria.show', ['industrium'=> $industrium]);
     }
 
     /**
      * Remove the specified resource from storage.
-     *
      * @param  App\Models\Industria
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Industria $industria)
+    public function destroy(Industria $industrium)
     {
-        $industria->delete();
+        //  dd($industrium);
+        $industrium->delete();
+        return redirect('industria.index')->with('status', 'Industria eliminada con éxito');
     }
 }

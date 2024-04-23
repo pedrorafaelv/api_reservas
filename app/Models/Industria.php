@@ -11,6 +11,7 @@ class Industria extends Model
     protected $fillable = [
          'nombre',
             ];
+            protected $table = 'industrias';
 
     public function empresa()
     {

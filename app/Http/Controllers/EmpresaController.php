@@ -1,17 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 use  App\Http\Requests\Empresa\StoreRequest;
 use  App\Http\Requests\Empresa\PutRequest;
-use Illuminate\Http\Response;
-use Validator;
 use App\Models\Empresa;
 use App\Models\Industria;
-
-use debugbar;
-
 class EmpresaController extends Controller
 {
     /**
@@ -21,9 +15,9 @@ class EmpresaController extends Controller
      */
     public function index()
     {
-        $industrias = Industria::pluck('nombre', 'id')->toArray();
+        // $industrias = Industria::pluck('nombre', 'id')->toArray();
         $empresas = Empresa::paginate(4);
-        return view('empresa.index', compact('empresas', 'industrias'));
+        return view('empresa.index', compact('empresas'));
     }
 
     /**
@@ -54,20 +48,20 @@ class EmpresaController extends Controller
         if (!$exito) {
             // Si no se pudo guardar la empresa, redireccionar con un mensaje de error
         }
-        //  return redirect()->route('empresas.show')->with('success', 'Empresa creada correctamente.');
+        return redirect()->route('empresas.show')->with('status', 'Empresa creada correctamente.');
 
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  empresa \App\Models\Empresa
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Empresa $empresa)
     {
-        $industrias = Industria::pluck('nombre', 'id')->toArray();
-        return view('empresa.show', compact('industrias'));
+        // $industrias = Industria::pluck('nombre', 'id')->toArray();
+        return view('empresa.show', compact( 'empresa'));
     }
 
     /**
@@ -79,6 +73,7 @@ class EmpresaController extends Controller
     public function edit(Empresa $empresa)
     {
         $industrias = Industria::pluck('nombre', 'id')->toArray();
+
         return view('empresa.edit', compact('industrias','empresa' ));
     }
 
@@ -91,7 +86,10 @@ class EmpresaController extends Controller
      */
     public function update(PutRequest $request, Empresa $empresa)
     {
+        $industrias = Industria::pluck('nombre', 'id')->toArray();
         $empresa->update($request->validated());
+        $request->session()->flash('status', 'Empresa actualizada exitosamente');
+        return redirect()->route('empresa.show', ['insutrias' => $industrias, 'empresa'=>$empresa]);
     }
 
     /**
@@ -103,5 +101,7 @@ class EmpresaController extends Controller
     public function destroy(Empresa $empresa)
     {
         $empresa->delete();
+        return redirect('empresa.index')->with('status', 'Empresa eliminada exitosamente');
+        ;
     }
 }

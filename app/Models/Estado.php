@@ -20,4 +20,8 @@ class Estado extends Model
     {
         return $this->hasMany(reserva::class);
     }
+     public function entidad(){
+         return false;
+        // return $this->belongsTo(Entidad::class)->get();
+     }
 }

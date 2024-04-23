@@ -13,7 +13,7 @@ class PutRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,12 @@ class PutRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'empresa_id' => ['required','numeric','exists:empresas,id'],
+            'fecha_inicio'=>['date'],
+            'fecha_fin' =>['date', 'after:fecha_inicio'],
+            'cliente_id' => ['required','numeric','exists:clientes,id'],
+            'recurso_id' => ['required','numeric','exists:recursos,id'],
+            'estado_id' => ['required','numeric','exists:estados,id'],
         ];
     }
 }

@@ -13,9 +13,9 @@
             @endforeach
         </select>
         <label for="fecha_inicio">Fecha de inicio</label>
-        <input type="date" name="fecha_inicio" id="fecha_inicio" value= "{{old("fecha_inicio")}}">
+        <input type="datetime-local" name="fecha_inicio" id="fecha_inicio" value= "{{old("fecha_inicio")}}">
         <label for="fecha_fin">Fecha fin</label>
-        <input type="date" name="fecha_fin" id="fecha_fin" value= "{{old("fecha_fin")}}">
+        <input type="datetime-local" name="fecha_fin" id="fecha_fin" value= "{{old("fecha_fin")}}">
         <label for="cliente_id">Cliente</label>
         <select name="cliente_id" id="cliente_id">
             @foreach ($clientes as $id=> $nombre)

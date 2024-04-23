@@ -2,6 +2,7 @@
 
 @section('content')
 <h3>Lista de Estados</h3>
+<a href="{{ route("estado.create")}}">Nuevo estado</a>
 <table>
     <thead>
         <td>Id</td>
@@ -17,8 +18,12 @@
           <td>{{$estado->nombre}}</td>
           <td>
             <a href="{{ route("estado.edit", $estado->id)}}">Editar</a>
-            <a href="{{ route("estado.create")}}">Crear</a>
-            <a href="{{ route("estado.destroy", $estado->id)}}">Eliminar</a>
+            <a href="{{ route("estado.show", $estado->id)}}">Ver</a>
+             <form action="{{ route("estado.destroy", $estado->id)}}" method="post">
+                @csrf
+                @method('delete')
+                <button type="submit">Eliminar</button>
+             </form>
         </td>
         </tr>
             @endforeach

@@ -24,13 +24,13 @@ class Recurso extends Model
         return $this->hasMany(Reserva::class);
     }
     //Relación de uno a muchos inversa (relación polimorfica)
-    public function tipo()
+    public function tipoRecurso()
     {
-        return $this->hasOne(tipoRecurso::class);
+        return $this->belongsTo(tipoRecurso::class);
     }
     public function estado()
     {
-        return $this->hasOne(Estado::class);
+        return $this->hasOne(Estado::class, 'id');
     }
 
     public function getRecursosXempresa( $empresa_id, $estado_id ){

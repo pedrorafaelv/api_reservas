@@ -24,10 +24,10 @@ class PutRequest extends FormRequest
     public function rules()
     {
         return [
-            'nombre' =>[ 'required','string', 'min:5','max:255'],
+            'nombre'=>['required','string','min:5', 'max:255', 'unique:empresas,nombre,'.$this->route("empresa")->id],
             'direccion' => ['required','string','max:255'],
             'telefono' => ['required','string','max:20'],
-            'email' => ['required','string','email','max:255'],
+            'email' => ['required','string','email','max:255', 'unique:empresas,email,'.$this->route("empresa")->id],
             'industria_id' => ['required','numeric','exists:industrias,id'],
             'fundacion' => ['required','date'],
         ];

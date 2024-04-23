@@ -24,7 +24,7 @@ class StoreRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'nombre'=>['required', 'min:5', 'max:255', 'unique:tipo_recursos,nombre'],
         ];
     }
 }

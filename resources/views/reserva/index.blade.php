@@ -1,6 +1,7 @@
 @extends('layout')
 
 @section('content')
+<a href="{{ route("reserva.create")}}">Nueva Reserva</a>
 <h3>Listado de Reservas</h3>
     <table>
         <thead>
@@ -25,8 +26,13 @@
               <td>{{$estados[$reserva->estado_id]}}</td>
               <td>
                 <a href="{{ route("reserva.edit", $reserva->id)}}">Editar</a>
-                <a href="{{ route("reserva.create")}}">Crear</a>
-                <a href="{{ route("reserva.destroy", $reserva->id)}}">Eliminar</a>
+                <a href="{{ route("reserva.show", $reserva->id)}}">Ver</a>
+                 <form action="{{ route("reserva.destroy", $reserva->id)}}" method="post">
+
+                    @csrf
+                    @method('delete')
+                    <button type="submit">Eliminar</button>
+                 </form>
             </td>
             </tr>
                 @endforeach

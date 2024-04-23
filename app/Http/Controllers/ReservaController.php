@@ -1,13 +1,13 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use Illuminate\Http\Request;
 use App\Models\Reserva;
 use App\Models\Recurso;
 use App\Models\Empresa;
 use App\Models\Cliente;
 use App\Models\estado;
+use App\Http\Requests\Reserva\PutRequest;
+use App\Http\Requests\Reserva\StoreRequest;
 use Carbon\Carbon;
 
 class ReservaController extends Controller
@@ -47,14 +47,17 @@ class ReservaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
         // Validar los datos del formulario
         // Crear una nueva reserva
         $reserva = new Reserva();
         $reserva->fill($request->all());
-        $reserva->save();
-        return redirect()->route('reserva.index')->with('success', 'Reserva creada correctamente.');
+        $exito = $reserva->save();
+        if (!$exito){
+              return false;
+        }
+        return redirect()->route('reserva.index')->with('status', 'Reserva creada correctamente.');
     }
 
     /**
@@ -93,13 +96,13 @@ class ReservaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Reserva $reserva)
+    public function update(PutRequest $request, Reserva $reserva)
     {
         //  return route('reserva.create');
         $reserva->update($request->validated());
-         return redirect('reserva.create');
+        $request->session()->flash('status', 'Reserva actualizada exitosamente');
+        return redirect('reserva.show', 'reserva');
         //  return redirect()->route('reserva.create')
-
     }
 
     /**
@@ -111,6 +114,6 @@ class ReservaController extends Controller
     public function destroy(Reserva $reserva)
     {
         $reserva->delete();
-        return redirect('reserva.index');
+        return redirect('reserva.index')->with('status', 'Reserva eliminada exitosamente');
     }
 }

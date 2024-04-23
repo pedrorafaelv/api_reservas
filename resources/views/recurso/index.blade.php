@@ -1,6 +1,7 @@
 @extends('layout')
 
 @section('content')
+<a href="{{ route("recurso.create")}}">Nuevo Recurso</a>
     <h3>Listado de Recursos</h3>
     <table>
         <thead>
@@ -16,15 +17,19 @@
             @foreach ($recursos as $recurso)
             <tr>
               <td>{{$recurso->id}}</td>
-              <td>{{$empresas[$recurso->empresa_id]}}</td>
-              <td>{{$tiporecursos[$recurso->tipo_recurso_id]}}</td>
+              <td>{{$recurso->empresa->nombre}}</td>
+              <td>{{$recurso->tiporecurso->nombre}}</td>
               <td>{{$recurso->nombre}}</td>
-              <td>{{$estados[$recurso->estado_id]}}</td>
+              <td>{{$recurso->estado['nombre']}}</td>
               <td>{{$recurso->time_format_reserve}}</td>
               <td>
                 <a href="{{ route("recurso.edit", $recurso->id)}}">Editar</a>
-                <a href="{{ route("recurso.create")}}">Crear</a>
-                <a href="{{ route("recurso.destroy", $recurso->id)}}">Eliminar</a>
+                <a href="{{ route("recurso.show", $recurso->id)}}">Ver</a>
+                <form action="{{ route("recurso.destroy", $recurso->id)}}" method="post">
+                    @csrf
+                    @method('delete')
+                    <button type="submit">Eliminar</button>
+                </form>
             </td>
             </tr>
                 @endforeach

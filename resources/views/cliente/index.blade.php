@@ -2,6 +2,7 @@
 
 @section('content')
     <h3>Listado de Clientes</h3>
+    <a href="{{ route("cliente.create")}}">Nuevo Cliente</a>
 <table>
     <thead>
         <td>Id</td>
@@ -19,8 +20,12 @@
           <td>{{$cliente->email}}</td>
           <td>
             <a href="{{ route("cliente.edit", $cliente->id)}}">Editar</a>
-            <a href="{{ route("cliente.create")}}">Crear</a>
-            <a href="{{ route("cliente.destroy", $cliente->id)}}">Eliminar</a>
+            <a href="{{ route("cliente.show", $cliente->id)}}">Ver</a>
+            <form action="{{ route("cliente.destroy", $cliente)}}" method="post">
+                @csrf
+                @method('delete')
+               <button type="submit">Eliminar</button>
+            </form>
         </td>
         </tr>
             @endforeach

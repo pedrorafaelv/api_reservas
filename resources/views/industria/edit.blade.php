@@ -1,7 +1,7 @@
 @extends('layout')
 @section('content')
 <h3>Actualizar Industria</h3>
-   <form action="{{ route('industria.update',$industria->id) }}" method="POST">
+   <form action="{{ route('industria.update',['industrium'=>$industria->id]) }}" method="POST">
         @csrf
         @method('put')
         <label for="nombre">Nombre:</label>

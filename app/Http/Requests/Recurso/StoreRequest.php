@@ -24,7 +24,11 @@ class StoreRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'nombre' =>[ 'required','string', 'min:5','max:255'],
+            'time_format_reserve' => ['required','numeric','max:1440'],
+            'estado_id' => ['required','numeric','exists:estados,id'],
+            'empresa_id' => ['required','numeric','exists:empresas,id'],
+            'tipo_recurso_id' => ['required','numeric','exists:tipo_recursos,id'],
         ];
     }
 }

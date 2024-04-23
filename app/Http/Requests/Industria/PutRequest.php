@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Requests\Industria;
-
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class PutRequest extends FormRequest
@@ -24,7 +24,12 @@ class PutRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'nombre' => [
+                'required',
+                'min:5',
+                'max:255',
+                Rule::unique('industrias')->ignore($this->route('industrium')->id),
+            ],
         ];
     }
 }

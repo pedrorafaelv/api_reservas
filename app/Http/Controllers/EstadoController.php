@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 use  App\Http\Requests\Estado\PutRequest;
 use  App\Http\Requests\Estado\StoreRequest;
-use Illuminate\Http\Request;
 use App\Models\Estado;
 class EstadoController extends Controller
 {
@@ -25,9 +24,7 @@ class EstadoController extends Controller
      */
     public function create()
     {
-
         return view('estado.create');
-
     }
 
     /**
@@ -44,6 +41,8 @@ class EstadoController extends Controller
         if (!$exito) {
             // Si no se pudo guardar la empresa, redireccionar con un mensaje de error
         }
+        $request->session()->flash('status', 'Estado creado correctamente');
+        return redirect('estado.show', 'estado');
     }
 
     /**
@@ -78,17 +77,18 @@ class EstadoController extends Controller
     public function update(PutRequest $request, Estado $estado)
     {
         $estado->update($request->validated());
-
+        $request->session()->flash('status', 'Estado actualizado exitosamente');
+        return redirect('estado.show', compact('estado'));
     }
 
     /**
      * Remove the specified resource from storage.
-     *
      * @param  estado  App\Models\Estado
      * @return \Illuminate\Http\Response
      */
     public function destroy(Estado $estado)
     {
         $estado->delete();
+        return redirect('estado.index')->with('status', 'Estado eliminado exitosamente');
     }
 }

@@ -4,11 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use  App\Http\Requests\Cliente\StoreRequest;
-use Illuminate\Http\Response;
-use Validator;
+use  App\Http\Requests\Cliente\PutRequest;
 use App\Models\Cliente;
-use debugbar;
-
 class ClienteController extends Controller
 {
     /**
@@ -47,7 +44,8 @@ class ClienteController extends Controller
         if (!$exito) {
             // Si no se pudo guardar la cliente, redireccionar con un mensaje de error
         }
-         return view('cliente.show', $cliente);
+        $request->session()->flash('status', 'Cliente Creado correctamente');
+        return view('cliente.show', $cliente);
     }
 
     /**
@@ -81,9 +79,11 @@ class ClienteController extends Controller
      * @param  int  App\Models\Cliente
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Cliente $cliente)
+    public function update(PutRequest $request, Cliente $cliente)
     {
         $cliente->update($request->validated());
+        $request->session()->flash('status', 'Cliente actualizado exitosamente');
+        return redirect('cliente.show')->with('cliente', $cliente);
     }
 
     /**
@@ -94,6 +94,9 @@ class ClienteController extends Controller
      */
     public function destroy(Cliente $cliente)
     {
+        // dd($cliente);
         $cliente->delete();
+        return redirect('cliente.index')->with('status', 'Cliente Eliminado con éxito');
+        ;
     }
 }

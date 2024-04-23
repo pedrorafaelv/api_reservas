@@ -25,8 +25,8 @@ class PutRequest extends FormRequest
     {
         return [
             'nombre'=>['required','string', 'min:5', 'max:255'],
-            'email'=>['required','string','email', 'max:255'],
-            'telefono'=>['required','numeric'],
+            'email'=>['required','string','email', 'max:255', 'unique:clientes,email,'.$this->route("cliente")->id],
+            'telefono'=>['required','numeric', 'unique:clientes,telefono,'.$this->route("cliente")->id],
         ];
     }
 }

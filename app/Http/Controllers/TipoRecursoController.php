@@ -1,8 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
+// use  App\Http\Requests\Recurso\StoreRequest;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\TipoRecurso\StoreRequest;
+use App\Http\Requests\TipoRecurso\PutRequest;
 use App\Models\TipoRecurso;
 class TipoRecursoController extends Controller
 {
@@ -33,14 +35,18 @@ class TipoRecursoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
         $tiporecurso = new TipoRecurso();
         $tiporecurso->fill($request->all());
         $exito = $tiporecurso->save();
         if (!$exito) {
-            // Si no se pudo guardar la empresa, redireccionar con un mensaje de error
+
         }
+        $request->session()->flash('status', 'Tipo de recurso creado correctamente');
+        return redirect('tipoRecurso.show', compact('tiporecurso'));
+
+    // Si no se pudo guardar la empresa, redireccionar con un mensaje de error
     }
 
     /**
@@ -72,9 +78,12 @@ class TipoRecursoController extends Controller
      * @param  \App\Models\TipoRecurso $tiporecurso
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, TipoRecurso $tiporecurso)
+    public function update(PutRequest $request, TipoRecurso $tiporecurso)
     {
         $tiporecurso->update();
+        $request->session()->flash('status', 'Tipo de recurso actualizado exitosamente');
+
+        return redirect('tiporecurso.show', compact('tiporecurso'));
     }
 
     /**
@@ -85,6 +94,7 @@ class TipoRecursoController extends Controller
      */
     public function destroy(TipoRecurso $tiporecurso)
     {
-        $tiporecurso->update();
+        $tiporecurso->delete();
+        return redirect('tiporecurso.index')->with('status', 'Tipo de recurso eliminado');
     }
 }
