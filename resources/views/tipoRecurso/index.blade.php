@@ -1,6 +1,6 @@
 @extends('layout')
 @section('content')
-<h3>Tipos de Tipo de Recursos</h3>
+<h3>Tipos de Recursos</h3>
 <a href="{{ route("tiporecurso.create")}}">Nuevo Tipo de Recurso</a>
 <table>
     <thead>

@@ -48,7 +48,7 @@ class EmpresaController extends Controller
         if (!$exito) {
             // Si no se pudo guardar la empresa, redireccionar con un mensaje de error
         }
-        return redirect()->route('empresas.show')->with('status', 'Empresa creada correctamente.');
+        return redirect()->route('empresa.index')->with('status', 'Empresa creada correctamente.');
 
     }
 
@@ -101,7 +101,7 @@ class EmpresaController extends Controller
     public function destroy(Empresa $empresa)
     {
         $empresa->delete();
-        return redirect('empresa.index')->with('status', 'Empresa eliminada exitosamente');
+        return redirect()->route('empresa.index')->with('status', 'Empresa eliminada exitosamente');
         ;
     }
 }

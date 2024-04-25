@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Requests\Estado;
+namespace App\Http\Requests\Entidad;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class PutRequest extends FormRequest
 {
@@ -23,9 +24,14 @@ class PutRequest extends FormRequest
      */
     public function rules()
     {
+        // dd($this->route());
         return [
-            'nombre' =>[ 'required','string', 'min:5','max:255'],
-            'entidad_id' => ['required','numeric'],
+            'nombre' => [
+                'required',
+                'min:5',
+                'max:255',
+                Rule::unique('entidads')->ignore($this->route('entidad')->id),
+            ],
         ];
     }
 }

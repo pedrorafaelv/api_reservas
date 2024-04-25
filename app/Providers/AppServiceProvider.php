@@ -58,6 +58,24 @@ class AppServiceProvider extends ServiceProvider
             return !$existeReserva; // La validación pasa si no hay dependencias
         });
 
+
+        Validator::extend('unique_combined', function ($attribute, $value, $parameters, $validator) {
+            $table = $parameters[0];
+            $column1 = $parameters[1];
+            $column2 = $parameters[2];
+            $exceptId = isset($parameters[3]) ? $parameters[3] : null;
+
+            $query = DB::table($table)
+                        ->where($column1, $value[0])
+                        ->where($column2, $value[1]);
+
+            if ($exceptId) {
+                $query->where('id', '!=', $exceptId);
+            }
+
+            return $query->exists() ? false : true;
+        });
+
     }
 
 

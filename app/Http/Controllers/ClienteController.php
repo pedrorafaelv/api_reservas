@@ -15,7 +15,7 @@ class ClienteController extends Controller
      */
     public function index()
     {
-        $clientes = Cliente::paginate(4);
+        $clientes = Cliente::paginate(8);
         return  view('cliente.index', compact('clientes'));
     }
 
@@ -44,8 +44,7 @@ class ClienteController extends Controller
         if (!$exito) {
             // Si no se pudo guardar la cliente, redireccionar con un mensaje de error
         }
-        $request->session()->flash('status', 'Cliente Creado correctamente');
-        return view('cliente.show', $cliente);
+        return redirect()->route('cliente.index')->with('status', 'Cliente creado correctamente.');
     }
 
     /**
@@ -83,7 +82,7 @@ class ClienteController extends Controller
     {
         $cliente->update($request->validated());
         $request->session()->flash('status', 'Cliente actualizado exitosamente');
-        return redirect('cliente.show')->with('cliente', $cliente);
+        return redirect()->route('cliente.show', ['cliente'=> $cliente]);
     }
 
     /**
@@ -96,7 +95,7 @@ class ClienteController extends Controller
     {
         // dd($cliente);
         $cliente->delete();
-        return redirect('cliente.index')->with('status', 'Cliente Eliminado con éxito');
+        return redirect()->route('cliente.index')->with('status', 'Cliente eliminado correctamente.');
         ;
     }
 }

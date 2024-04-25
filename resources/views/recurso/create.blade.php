@@ -1,4 +1,4 @@
-<@extends('layout')
+@extends('layout')
 
 @section('content')
     <h1>Nuevo Recurso</h1>
@@ -30,4 +30,4 @@
         <button type="submit">Guardar</button>
     </form>
     @include('fragment._errors-form')
-<@endsection
+@endsection

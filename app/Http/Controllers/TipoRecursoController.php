@@ -15,7 +15,7 @@ class TipoRecursoController extends Controller
      */
     public function index()
     {
-        $tiporecursos= TipoRecurso::paginate();
+        $tiporecursos= TipoRecurso::paginate(8);
         return view('tipoRecurso.index', compact('tiporecursos'));
     }
 
@@ -44,7 +44,9 @@ class TipoRecursoController extends Controller
 
         }
         $request->session()->flash('status', 'Tipo de recurso creado correctamente');
-        return redirect('tipoRecurso.show', compact('tiporecurso'));
+        return redirect()->route('tiporecurso.index')->with('status', 'Tipo de Recurso creado correctamente.');
+
+        // return redirect('tipoRecurso.show', compact('tiporecurso'));
 
     // Si no se pudo guardar la empresa, redireccionar con un mensaje de error
     }
@@ -82,8 +84,7 @@ class TipoRecursoController extends Controller
     {
         $tiporecurso->update();
         $request->session()->flash('status', 'Tipo de recurso actualizado exitosamente');
-
-        return redirect('tiporecurso.show', compact('tiporecurso'));
+        return redirect()->route('tiporecurso.show', ['tiporecurso' => $tiporecurso]);
     }
 
     /**
@@ -95,6 +96,7 @@ class TipoRecursoController extends Controller
     public function destroy(TipoRecurso $tiporecurso)
     {
         $tiporecurso->delete();
-        return redirect('tiporecurso.index')->with('status', 'Tipo de recurso eliminado');
+        return redirect()->route('tiporecurso.index')->with('status', 'Tipo de Recurso eliminado exitosamente');
     }
+
 }

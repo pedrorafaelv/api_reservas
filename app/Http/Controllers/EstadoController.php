@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use  App\Http\Requests\Estado\PutRequest;
 use  App\Http\Requests\Estado\StoreRequest;
 use App\Models\Estado;
+use App\Models\Entidad;
 class EstadoController extends Controller
 {
     /**
@@ -13,7 +14,7 @@ class EstadoController extends Controller
      */
     public function index()
     {
-        $estados = Estado::paginate(4);
+        $estados = Estado::paginate(8);
         return view('estado.index', compact('estados'));
     }
 
@@ -24,7 +25,10 @@ class EstadoController extends Controller
      */
     public function create()
     {
-        return view('estado.create');
+        $entidads = Entidad::pluck('nombre', 'id')->toArray();
+
+        // $entidads = Entidad::all();
+        return view('estado.create', compact('entidads'));
     }
 
     /**
@@ -35,6 +39,7 @@ class EstadoController extends Controller
      */
     public function store(StoreRequest $request)
     {
+
         $estado = new Estado();
         $estado->fill($request->all());
         $exito = $estado->save();
@@ -42,7 +47,7 @@ class EstadoController extends Controller
             // Si no se pudo guardar la empresa, redireccionar con un mensaje de error
         }
         $request->session()->flash('status', 'Estado creado correctamente');
-        return redirect('estado.show', 'estado');
+        return redirect()->route('estado.show', ['estado'=>$estado]);
     }
 
     /**
@@ -64,7 +69,8 @@ class EstadoController extends Controller
      */
     public function edit(Estado $estado)
     {
-        return view('estado.edit', compact('estado'));
+        $entidads = Entidad::pluck('nombre', 'id')->toArray();
+        return view('estado.edit', compact('estado', 'entidads'));
     }
 
     /**
@@ -78,7 +84,8 @@ class EstadoController extends Controller
     {
         $estado->update($request->validated());
         $request->session()->flash('status', 'Estado actualizado exitosamente');
-        return redirect('estado.show', compact('estado'));
+        return redirect()->route('estado.show', [ 'estado'=> $estado]);
+
     }
 
     /**
@@ -89,6 +96,6 @@ class EstadoController extends Controller
     public function destroy(Estado $estado)
     {
         $estado->delete();
-        return redirect('estado.index')->with('status', 'Estado eliminado exitosamente');
+        return redirect()->route('estado.index')->with('status', 'Estado eliminado exitosamente');
     }
 }

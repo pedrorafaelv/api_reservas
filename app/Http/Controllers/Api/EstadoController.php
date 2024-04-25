@@ -45,17 +45,17 @@ class EstadoController extends Controller
     public function store(Request $request)
     {
         $rules=[
-            'entidad' => 'required|min:4',
+            'entidad_id' => 'required|numeric',
             'nombre' => [' min:4' ,'required', Rule::unique('estados')->where(function ($query) use ($request) {
-                return $query->where('entidad', $request->entidad);
+                return $query->where('entidad_id', $request->entidad_id);
             })],
           ];
         $messages=[
             'nombre.required' => 'El nombre es obligatorio.',
             'nombre.min'=>'el nombre debe ser minimo :min caracateres',
             'nombre.unique'=> 'El la combinacion de nombre y entidad ya existe en la tabla Estados',
-            'entidad.required' => 'la entidad es obligatorio.',
-            'entidad.min'=>'la entidad debe ser minimo :min caracateres',
+            'entidad_id.required' => 'la entidad es obligatorio.',
+            'entidad_id.min'=>'la entidad debe ser minimo :min caracateres',
         ];
         $validator = Validator::make($request->route()->parameters, $rules, $messages);
 
@@ -64,7 +64,7 @@ class EstadoController extends Controller
        if(!$validator->fails()){
                 $estado = new Estado();
                 $estado->nombre = $request->nombre;
-                $estado->entidad = $request->entidad;
+                $estado->entidad_id = $request->entidad_id;
                 $res = $estado->save();
                 if($res){
                     return response()->json([ 'message'=>'Estado Guardado Correctamente', 'Estado'=>$estado],201);
@@ -112,17 +112,17 @@ class EstadoController extends Controller
     public function update(Request $request, $id)
     {
         $rules=[
-            'entidad' => 'required|min:4',
+            'entidad_id' => 'required|numeric',
             'nombre' => ['min:4','required', Rule::unique('estados')->where(function ($query) use ($request) {
-                return $query->where('entidad', $request->entidad);
+                return $query->where('entidad_id', $request->entidad_id);
             })],
           ];
         $messages=[
             'nombre.required' => 'El nombre es obligatorio.',
             'nombre.min'=>'el nombre debe ser minimo :min caracateres',
             'nombre.unique'=> 'La combinación de nombre y entidad ya existe en la tabla Estados',
-            'entidad.required' => 'la entidad es obligatorio.',
-            'entidad.min'=>'la entidad debe ser minimo :min caracateres',
+            'entidad_id.required' => 'la entidad es obligatorio.',
+            'entidad_id.min'=>'la entidad debe ser minimo :min caracateres',
         ];
         $validator = Validator::make($request->route()->parameters, $rules, $messages);
         // Buscar el estado por su ID

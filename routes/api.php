@@ -70,10 +70,10 @@ Route::delete('Cliente/delCliente/{id}', [ClienteController::class, 'destroy']);
 Route::resource('Estado', EstadoController::class)->except([ 'create', 'edit' ]);
 
 /**Crear un nuevo estado */
-Route::post('Estado/newEstado/{entidad}/{nombre}', [EstadoController::class, 'store']);
+Route::post('Estado/newEstado/{entidad_id}/{nombre}', [EstadoController::class, 'store']);
 
 /** Actualizar un estado */
-Route::put('Estado/updEstado/{id}/{entidad}/{nombre}', [EstadoController::class, 'update']);
+Route::put('Estado/updEstado/{id}/{entidad_id}/{nombre}', [EstadoController::class, 'update']);
 
 /** Eliminar un estado */
 Route::delete('Estado/delEstado/{id}', [EstadoController::class, 'destroy']);

@@ -1,4 +1,4 @@
-extends('layout')
+@extends('layout')
 @section('content')
 <h3>Detalle de la reserva: {{$reserva->id}}</h3>
 <table>
@@ -14,12 +14,12 @@ extends('layout')
     <tbody>
         <tr>
           <td>{{$reserva->id}}</td>
-          <td>{{$empresas[$reserva->empresa_id]}}</td>
+          <td>{{$reserva->empresa->nombre}}</td>
           <td>{{$reserva->fecha_inicio}}</td>
           <td>{{$reserva->fecha_fin}}</td>
-          <td>{{$clientes[$reserva->cliente_id]}}</td>
-          <td>{{$recursos[$reserva->recurso_id]}}</td>
-          <td>{{$estados[$reserva->estado_id]}}</td>
+          <td>{{$reserva->cliente->nombre}}</td>
+          <td>{{$reserva->recurso->nombre}}</td>
+          <td>{{$reserva->estado->nombre}}</td>
         </tr>
     </tbody>
 </table>

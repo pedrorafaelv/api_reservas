@@ -1,4 +1,4 @@
-<@extends('layout')
+@extends('layout')
 
 @section('content')
     <h1>Actualizar Recurso</h1>
@@ -6,7 +6,7 @@
         @csrf
         @method('put')
         <label for="nombre">Nombre:</label>
-        <input type="text" name="nombre" id="nombre" value ={{$recurso->nombre}}>
+        <input type="text" name="nombre" id="nombre" value ="{{$recurso->nombre}}">
         <label for="empresa_id">Empresa</label>
         <select name="empresa_id" id="empresa_id">
             @foreach ($empresas as $id=> $nombre)
@@ -26,9 +26,9 @@
             @endforeach
         </select>
         <label for="time_format_reserve">Tiempo de Reserva</label>
-        <input type="text" name="time_format_reserve" id="time_format_reserve" value ={{$recurso->time_format_reserve}}>
+        <input type="text" name="time_format_reserve" id="time_format_reserve" value ="{{$recurso->time_format_reserve}}">
 
         <button type="submit">Guardar</button>
     </form>
     @include('fragment._errors-form')
-<@endsection
+@endsection

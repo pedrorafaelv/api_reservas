@@ -1,9 +1,10 @@
 @extends('layout')
 
 @section('content')
-    <h1>Nueva Reserva</h1>
+    <h1>Actualizar Reserva: {{$reserva->id}}</h1>
     <form action="{{ route('reserva.update', $reserva) }}" method="POST">
         @csrf
+        @method('put')
         <label for="empresa_id">Empresa</label>
         <select name="empresa_id" id="empresa_id">
             @foreach ($empresas as $id=> $nombre)

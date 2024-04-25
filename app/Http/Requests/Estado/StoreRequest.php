@@ -23,9 +23,10 @@ class StoreRequest extends FormRequest
      */
     public function rules()
     {
+        $data = $this->route();
         return [
-            'nombre' =>[ 'required','string', 'min:5','max:255'],
-            'entidad' => ['required','min:5', 'max:255'],
+            'entidad_id' => ['required','numeric'],
+            'nombre' => ['required', 'min:5','unique_combined:estados,entidad_id,nombre'],
         ];
     }
 }

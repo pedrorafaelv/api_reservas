@@ -1,8 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
-use  App\Http\Requests\Recurso\PutRequest;
-use  App\Http\Requests\Recurso\StoreRequest;
+use App\Http\Requests\Recurso\PutRequest;
+use App\Http\Requests\Recurso\StoreRequest;
 use App\Models\Recurso;
 use App\Models\Empresa;
 use App\Models\TipoRecurso;
@@ -19,7 +19,7 @@ class RecursoController extends Controller
         // $empresas = Empresa::pluck('nombre', 'id')->toArray();
         // $estados = Estado::pluck('nombre', 'id')->toArray();
         // $tiporecursos = TipoRecurso::pluck('nombre', 'id')->toArray();
-        $recursos= Recurso::paginate(4);
+        $recursos= Recurso::paginate(10);
         return view('recurso.index', compact('recursos'));
     }
 
@@ -53,7 +53,9 @@ class RecursoController extends Controller
             // Si no se pudo guardar la empresa, redireccionar con un mensaje de error
         }
         $request->session()->flash('status', 'Recurso creado exitosamente');
-        return redirect('recurso.index');
+        return redirect()->route('recurso.index')->with('status', 'Recurso creado correctamente.');
+
+        // return redirect('recurso.index');
     }
 
     /**
@@ -96,7 +98,9 @@ class RecursoController extends Controller
     {
         $recurso->update($request->validated());
         $request->session()->flash('status', 'Recurso actualizado exitosamente');
-        return redirect('recurso.index');
+        return redirect()->route('recurso.show', [ 'recurso'=>$recurso]);
+
+        // return redirect('recurso.index');
     }
 
     /**
@@ -108,6 +112,7 @@ class RecursoController extends Controller
     public function destroy(Recurso $recurso)
     {
         $recurso->delete();
-        return redirect('recurso.index')->with('status', 'Recurso eliminado exitosamente');
+        return redirect()->route('recurso.index')->with('status', 'Recurso eliminado exitosamente');
+
     }
 }

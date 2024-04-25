@@ -14,7 +14,7 @@
         @foreach ($estados as $estado)
         <tr>
           <td>{{$estado->id}}</td>
-          <td>{{$estado->entidad}}</td>
+          <td>{{$estado->entidad->nombre}}</td>
           <td>{{$estado->nombre}}</td>
           <td>
             <a href="{{ route("estado.edit", $estado->id)}}">Editar</a>

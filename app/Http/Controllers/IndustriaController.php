@@ -13,7 +13,7 @@ class IndustriaController extends Controller
      */
     public function index()
     {
-        $industrias = Industria::paginate(4);
+        $industrias = Industria::paginate(8);
         return view('industria.index', compact('industrias'));
     }
 
@@ -42,7 +42,7 @@ class IndustriaController extends Controller
             // return redirect('industria.show')->with('industria', $industria);
         }
         $request->session()->flash('status', 'Industria creada correctamente');
-        return view('industria.show',compact ('industrium'));
+        return redirect()->route('industria.index')->with('status', 'Industria creada correctamente.');
     }
 
     /**
@@ -94,6 +94,6 @@ class IndustriaController extends Controller
     {
         //  dd($industrium);
         $industrium->delete();
-        return redirect('industria.index')->with('status', 'Industria eliminada con éxito');
+        return redirect()->route('industria.index')->with('status', 'Industria eliminada exitosamente');
     }
 }

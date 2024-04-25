@@ -1,4 +1,4 @@
-extends('layout')
+@extends('layout')
 @section('content')
     <h1>Tipo de Recurso</h1>
     <form action="{{ route('tiporecurso.store') }}" method="POST">
@@ -8,4 +8,4 @@ extends('layout')
         <button type="submit">Guardar</button>
     </form>
     @include('fragment._errors-form')
-endsection
+@endsection

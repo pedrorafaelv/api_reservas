@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Estado;
+namespace App\Http\Requests\Entidad;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class PutRequest extends FormRequest
+class StoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +24,7 @@ class PutRequest extends FormRequest
     public function rules()
     {
         return [
-            'nombre' =>[ 'required','string', 'min:5','max:255'],
-            'entidad_id' => ['required','numeric'],
+            'nombre'=>['required', 'min:5', 'max:255', 'unique:entidads,nombre'],
         ];
     }
 }

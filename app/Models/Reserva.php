@@ -26,4 +26,9 @@ class Reserva extends Model
     {
         return $this->belongsTo(Recurso::class);
     }
+
+    public function estado()
+    {
+        return $this->belongsTo(Estado::class);
+    }
 }

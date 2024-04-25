@@ -8,6 +8,7 @@ use App\Http\Controllers\IndustriaController;
 use App\Http\Controllers\EstadoController;
 use App\Http\Controllers\RecursoController;
 use App\Http\Controllers\TipoRecursoController;
+use App\Http\Controllers\EntidadController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,6 +46,7 @@ Route::resource('tiporecurso', TipoRecursoController::class);
 Route::resource('recurso', RecursoController::class);
 Route::resource('reserva', ReservaController::class);
 Route::resource('industria', IndustriaController::class);
+Route::resource('entidad', EntidadController::class);
 
 // Ruta para mostrar el formulario de creación de una industria
 Route::get('/industria/create', [IndustriaController::class, 'create'])->name('industria.create');

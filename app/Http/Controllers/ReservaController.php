@@ -99,9 +99,15 @@ class ReservaController extends Controller
     public function update(PutRequest $request, Reserva $reserva)
     {
         //  return route('reserva.create');
+        $empresas = Empresa::pluck('nombre', 'id')->toArray();
+        $estados = Estado::pluck('nombre', 'id')->toArray();
+        $recursos = Recurso::pluck('nombre', 'id')->toArray();
+        $clientes = Cliente::pluck('nombre', 'id')->toArray();
         $reserva->update($request->validated());
         $request->session()->flash('status', 'Reserva actualizada exitosamente');
-        return redirect('reserva.show', 'reserva');
+        return redirect()->route('reserva.show', ['empresas' => $empresas, 'estados'=>$estados,'recursos'=>$recursos ,'clientes'=>$clientes,'reserva'=>$reserva]);
+
+        // return redirect('reserva.show', 'reserva');
         //  return redirect()->route('reserva.create')
     }
 
@@ -114,6 +120,7 @@ class ReservaController extends Controller
     public function destroy(Reserva $reserva)
     {
         $reserva->delete();
-        return redirect('reserva.index')->with('status', 'Reserva eliminada exitosamente');
+        return redirect()->route('reserva.index')->with('status', 'Reserva eliminada exitosamente');
+
     }
 }
