@@ -88,8 +88,8 @@ class EmpresaController extends Controller
     {
         $industrias = Industria::pluck('nombre', 'id')->toArray();
         $empresa->update($request->validated());
-        $request->session()->flash('status', 'Empresa actualizada exitosamente');
-        return redirect()->route('empresa.show', ['insutrias' => $industrias, 'empresa'=>$empresa]);
+        return redirect()->route('empresa.show', ['insutrias' => $industrias, 'empresa'=>$empresa])
+        ->with('status', 'Empresa actualizada exitosamente');
     }
 
     /**

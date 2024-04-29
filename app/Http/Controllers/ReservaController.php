@@ -104,8 +104,9 @@ class ReservaController extends Controller
         $recursos = Recurso::pluck('nombre', 'id')->toArray();
         $clientes = Cliente::pluck('nombre', 'id')->toArray();
         $reserva->update($request->validated());
-        $request->session()->flash('status', 'Reserva actualizada exitosamente');
-        return redirect()->route('reserva.show', ['empresas' => $empresas, 'estados'=>$estados,'recursos'=>$recursos ,'clientes'=>$clientes,'reserva'=>$reserva]);
+        // $request->session()->flash('status', 'Reserva actualizada exitosamente');
+        return redirect()->route('reserva.show', ['empresas' => $empresas, 'estados'=>$estados,'recursos'=>$recursos ,'clientes'=>$clientes,'reserva'=>$reserva])
+        ->with('status', 'Reserva actualizada exitosamente');
 
         // return redirect('reserva.show', 'reserva');
         //  return redirect()->route('reserva.create')
