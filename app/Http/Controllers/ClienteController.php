@@ -15,7 +15,7 @@ class ClienteController extends Controller
      */
     public function index()
     {
-        $clientes = Cliente::paginate(8);
+        $clientes = Cliente::paginate(5);
         return  view('cliente.index', compact('clientes'));
     }
 
@@ -81,8 +81,7 @@ class ClienteController extends Controller
     public function update(PutRequest $request, Cliente $cliente)
     {
         $cliente->update($request->validated());
-        $request->session()->flash('status', 'Cliente actualizado exitosamente');
-        return redirect()->route('cliente.show', ['cliente'=> $cliente]);
+        return redirect()->route('cliente.show', ['cliente'=> $cliente])->with('status', 'Cliente actualizado exitosamente');
     }
 
     /**

@@ -15,6 +15,30 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('cliente.index')" :active="request()->routeIs('cliente.index')">
+                       {{ __('Cliente')}}
+                    </x-nav-link>
+                    <x-nav-link :href="route('empresa.index')" :active="request()->routeIs('empresa.index')">
+                        {{ __('Empresa')}}
+                     </x-nav-link>
+                     <x-nav-link :href="route('entidad.index')" :active="request()->routeIs('entidad.index')">
+                        {{ __('Entidad')}}
+                     </x-nav-link>
+                     <x-nav-link :href="route('estado.index')" :active="request()->routeIs('estado.index')">
+                        {{ __('Estado')}}
+                     </x-nav-link>
+                     <x-nav-link :href="route('industria.index')" :active="request()->routeIs('industria.index')">
+                        {{ __('Industria')}}
+                     </x-nav-link>
+                     <x-nav-link :href="route('recurso.index')" :active="request()->routeIs('recurso.index')">
+                        {{ __('Recurso')}}
+                     </x-nav-link>
+                     <x-nav-link :href="route('reserva.index')" :active="request()->routeIs('reserva.index')">
+                        {{ __('Reserva')}}
+                     </x-nav-link>
+                     <x-nav-link :href="route('tiporecurso.index')" :active="request()->routeIs('tiporecurso.index')">
+                        {{ __('Tipo recurso')}}
+                     </x-nav-link>
                 </div>
             </div>
 
@@ -70,6 +94,7 @@
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
+
         </div>
 
         <!-- Responsive Settings Options -->

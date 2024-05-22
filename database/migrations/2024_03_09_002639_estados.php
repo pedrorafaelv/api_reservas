@@ -15,9 +15,9 @@ class Estados extends Migration
     {
         Schema::create('estados', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger( 'entidad_id');  //id de la entidad
+            $table->unsignedBigInteger( 'tipo_recurso_id');  //id de la entidad
             $table->string( 'nombre');  //Nombre del estado
-            $table->foreign('entidad_id')->references('id')->on('entidads')->onDelete('cascade');
+            $table->foreign('tipo_recurso_id')->references('id')->on('tipo_recursos');
 
             $table->timestamps();
     });

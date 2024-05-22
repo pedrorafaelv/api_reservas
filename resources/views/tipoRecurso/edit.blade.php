@@ -1,11 +1,22 @@
 @extends('layout')
 @section('content')
-    <h1>Editar Tipo de Recurso</h1>
+<div class="custom-container">
+    <h3>Editar Tipo de Recurso{{$tiporecurso->nombre}}</h3>
+</div>
+<div class="custom-container">
     <form action="{{ route('tiporecurso.update', $tiporecurso->id) }}" method="POST">
         @csrf
-        <label for="nombre">Nombre:</label>
-        <input type="text" name="nombre" id="nombre">
-        <button type="submit">Guardar</button>
+        @method('put')
+        <div class="grid grid-cols-4 gap-2 custom-grid">
+            <div class="div-square col-start-2">
+                <input class="input-custom"  placeholder= "Nombre" type="text" name="nombre" id="nombre">
+                <label class="custom-label" for="nombre">Nombre:</label>
+            </div>
+            <div class="div-square">
+                <button type="submit" class="btn-primary">Guardar</button>
+            </div>
+        </div>
     </form>
     @include('fragment._errors-form')
+</div>
 @endsection

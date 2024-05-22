@@ -1,37 +1,52 @@
 @extends('layout')
 
 @section('content')
-    <h3>Listado de Clientes</h3>
-    <a href="{{ route("cliente.create")}}">Nuevo Cliente</a>
-<table>
-    <thead>
-        <td>Id</td>
-        <td>Nombre</td>
-        <td>Teléfono</td>
-        <td>@Email</td>
-        <td>Acciones</td>
-    </thead>
-    <tbody>
-        @foreach ($clientes as $cliente)
-        <tr>
-          <td>{{$cliente->id}}</td>
-          <td>{{$cliente->nombre}}</td>
-          <td>{{$cliente->telefono}}</td>
-          <td>{{$cliente->email}}</td>
-          <td>
-            <a href="{{ route("cliente.edit", $cliente->id)}}">Editar</a>
-            <a href="{{ route("cliente.show", $cliente->id)}}">Ver</a>
+<div class="custom-container">
+    <a class="btn-primary " href="{{ route("cliente.create")}}"  title="Nuevo">   <i class="fa-solid fa-square-plus"></i>  Nuevo Cliente</a>
+</div>
+
+<div class="custom-container">
+    <div class="grid grid-cols-4 custom-grid">
+        <div class="table-header">
+            <div class="header-tittle">
+                Nombre
+            </div>
+        </div>
+        <div class="table-header">
+            <div class="header-tittle">
+                Tel&eacute;fono
+            </div>
+        </div>
+        <div class="table-header">
+            <div class="header-tittle">
+                @Email
+            </div>
+        </div>
+        <div class="table-header">
+            <div class="header-tittle">
+                Acciones
+            </div>
+        </div>
+    </div>
+    @foreach ($clientes as $cliente)
+    <div class="grid grid-cols-4 gap-2 custom-grid">
+        <div>{{$cliente->nombre}}</div>
+        <div>{{$cliente->telefono}}</div>
+        <div>{{$cliente->email}}</div>
+        <div class="p-1">
             <form action="{{ route("cliente.destroy", $cliente)}}" method="post">
+                <a class= "btn-secondary " href="{{ route("cliente.edit", $cliente->id)}}" title="Editar"><i class="fas fa-edit"></i></a>
+                <a class="btn-primary " href="{{ route("cliente.show", $cliente->id)}}"  title="ver"> <i class="fas fa-eye"></i></a>
                 @csrf
                 @method('delete')
-               <button type="submit">Eliminar</button>
+                <button type="submit" class="btn-danger"  title="eliminar"><i class="fas fa-trash-alt"></i>
+                </button>
             </form>
-        </td>
-        </tr>
-            @endforeach
-
-    </tbody>
-</table>
-
-    {{$clientes->links()}}
+        </div>
+    </div>
+    @endforeach
+    <div class="table-footer">
+        {{$clientes->links()}}
+    </div>
+</div>
 @endsection

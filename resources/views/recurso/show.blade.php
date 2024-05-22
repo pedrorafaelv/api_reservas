@@ -1,25 +1,25 @@
 @extends('layout')
 
 @section('content')
-<h3>Detalle del recurso: {{$recurso->nombre}}</h3>
-<table>
-    <thead>
-        <td>Id</td>
-        <td>Empresa</td>
-        <td>Tipo Recurso</td>
-        <td>Nombre</td>
-        <td>Estado</td>
-        <td>Formato Tiempo</td>
-    </thead>
-    <tbody>
-        <tr>
-          <td>{{$recurso->id}}</td>
-          <td>{{$recurso->empresa->nombre}}</td>
-          <td>{{$recurso->tiporecurso->nombre}}</td>
-          <td>{{$recurso->nombre}}</td>
-          <td>{{$recurso->estado['nombre']}}</td>
-          <td>{{$recurso->time_format_reserve}}</td>
-        </tr>
-    </tbody>
-</table>
+<div class="custom-container">
+    <h3>Detalle del recurso: {{$recurso->nombre}}</h3>
+</div>
+<div class="custom-container">
+    <div class="grid grid-cols-6 custom-grid">
+        <div>Id</div>
+        <div>Empresa</div>
+        <div>Tipo Recurso</div>
+        <div>Nombre</div>
+        <div>Estado</div>
+        <div>Formato Tiempo</div>
+    </div>
+    <div class="grid grid-cols-6 custom-grid">
+        <div>{{$recurso->id}}</div>
+        <div>{{$recurso->empresa->nombre}}</div>
+        <div>{{$recurso->tiporecurso->nombre}}</div>
+        <div>{{$recurso->nombre}}</div>
+        <div>{{$recurso->estado['nombre']}}</div>
+        <div>{{$recurso->time_format_reserve}}</div>
+    </div>
+</div>
 @endsection

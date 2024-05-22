@@ -1,20 +1,31 @@
 @extends('layout')
 
 @section('content')
-    <h1>Actualizar Estado</h1>
+<div class="custom-container">
+    <h3>Actualizar Estado: {{$estado->nombre}}</h3>
+</div>
+<div class="custom-container">
     <form action="{{ route('estado.update', $estado->id) }}" method="POST">
         @csrf
         @method('put')
-        <label for="entidad_id">Entidad</label>
-        <select name="entidad_id" id="entidad_id">
-            @foreach ($entidads as $id=> $nombre)
-            <option {{$estado->entidad_id == $id ? 'selected':''}} value="{{$id}}">{{$nombre}}</option>
-            @endforeach
-        </select>
-        {{--  <input type="text" name="entidad_id" id="entidad_id" value = {{$estado->entidad->nombre}}>  --}}
-        <label for="nombre">Nombre:</label>
-        <input type="text" name="nombre" id="nombre" value = {{$estado->nombre}}>
-        <button type="submit">Guardar</button>
+        <div class="grid grid-cols-4 gap-2 custom-grid">
+            <div class="div-square col-start-2">
+                <select placeholder="" class="input-custom" name="tipo_recurso_id" id="tipo_recurso_id">
+                    @foreach ($tiporecursos as $id=> $nombre)
+                    <option {{$estado->tipo_recurso_id == $id ? 'selected':''}} value="{{$id}}">{{$nombre}}</option>
+                    @endforeach
+                </select>
+                <label class="custom-label" for="tipo_recurso_id">Entidad</label>
+            </div>
+            <div class="div-square">
+                <input placeholder="" class="input-custom" type="text" name="nombre" id="nombre" value = {{$estado->nombre}}>
+                <label class="custom-label" for="nombre">Nombre:</label>
+            </div>
+             <div class="div-square">
+                 <button  class= "btn-primary" type="submit">Guardar</button>
+             </div>
+        </div>
     </form>
     @include('fragment._errors-form')
+</div>
 @endsection

@@ -11,4 +11,19 @@ export default defineConfig({
         manifestSRI(),
 
     ],
+    resolve: {
+        alias: {
+            '$': 'jQuery'
+        },
+    },
+    build: {
+        rollupOptions: {
+            output: {
+                // expose jQuery as a global variable
+                globals: {
+                    jquery: 'jQuery'
+                },
+            },
+        },
+    },
 });

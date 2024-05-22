@@ -3,6 +3,19 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\EmpresaController;
+use App\Http\Controllers\EntidadController;
+use App\Http\Controllers\EstadoController;
+use App\Http\Controllers\IndustriaController;
+use App\Http\Controllers\RecursoController;
+use App\Http\Controllers\ReservaController;
+use App\Http\Controllers\TipoRecursoController;
+ use App\Models\Empresa;
+ use App\Models\Recurso;
+ use App\Models\Estado;
+ use Illuminate\Database\Eloquent\Model;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -29,3 +42,29 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+
+Route::resource('cliente', ClienteController::class)->middleware(['auth', 'verified']);
+Route::resource('empresa', EmpresaController::class)->middleware(['auth', 'verified']);
+Route::resource('entidad', EntidadController::class)->middleware(['auth', 'verified']);
+Route::resource('estado', EstadoController::class)->middleware(['auth', 'verified']);
+Route::resource('industria', IndustriaController::class)->middleware(['auth', 'verified']);
+Route::resource('recurso', RecursoController::class)->middleware(['auth', 'verified']);
+Route::resource('reserva', ReservaController::class)->middleware(['auth', 'verified']);
+Route::resource('tiporecurso', TipoRecursoController::class)->middleware(['auth', 'verified']);
+
+// Ruta para mostrar el formulario de creación de una industria
+Route::get('/industria/create', [IndustriaController::class, 'create'])->name('industria.create')->middleware(['auth', 'verified']);
+
+// Ruta para guardar una nueva industria
+Route::post('/industria', [IndustriaController::class, 'store'])->name('industria.store')->middleware(['auth', 'verified']);
+
+
+Route::get('empresas/{id}/recursos', function ($id){
+$empresa = Empresa::find($id);
+ return Recurso::where('empresa_id', $empresa->id)->get();
+});
+
+Route::get('recursos/{id}/estados', function ($id){
+    $recurso = Recurso::find($id);
+     return Estado::where('entidad_id', $recurso->tipo_recurso_id)->get();
+    });

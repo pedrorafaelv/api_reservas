@@ -1,20 +1,20 @@
 @extends('layout')
 
 @section('content')
-<h3>Detalle del Estado: {{$estado->nombre}}</h3>
-<table>
-    <thead>
-        <td>Id</td>
-        <td>Entidad</td>
-        <td>Nombre</td>
-    </thead>
-    <tbody>
-        <tr>
-          <td>{{$estado->id}}</td>
-          <td>{{$estado->entidad->nombre}}</td>
-          <td>{{$estado->nombre}}</td>
-        </tr>
-    </tbody>
-</table>
+<div class="custom-container">
+    <h3>Detalle del Estado: {{$estado->nombre}}</h3>
+</div>
+<div class="custom-container">
+    <div class="grid grid-cols-3 custom-grid ">
+        <div>Id</div>
+        <div>Tipo Recurso</div>
+        <div>Nombre</div>
+    </div>
+    <div class="grid grid-cols-3 custom-grid ">
+        <div>{{$estado->id}}</div>
+        <div>{{$estado->tipoRecurso->nombre}}</div>
+        <div>{{$estado->nombre}}</div>
+    </div>
+</div>
 @endsection
 

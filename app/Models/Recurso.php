@@ -30,7 +30,7 @@ class Recurso extends Model
     }
     public function estado()
     {
-        return $this->hasOne(Estado::class, 'id');
+        return $this->belongsTo(Estado::class);
     }
 
     public function getRecursosXempresa( $empresa_id, $estado_id ){

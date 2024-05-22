@@ -1,12 +1,22 @@
 @extends('layout')
 @section('content')
-<h3>Actualizar Industria</h3>
-   <form action="{{ route('industria.update',['industrium'=>$industria->id]) }}" method="POST">
+<div class="custom-container">
+    <h3>Actualizar Industria: {{$industria->nombre}}</h3>
+</div>
+<div class="custom-container">
+    <form action="{{ route('industria.update',['industrium'=>$industria->id]) }}" method="POST">
         @csrf
         @method('put')
-        <label for="nombre">Nombre:</label>
-        <input type="text" name="nombre" id="nombre" value = {{$industria->nombre}}>
-        <button type="submit">Guardar</button>
+        <div class="grid grid-cols-4 gap-2 custom-grid">
+            <div class="div-square col-start-2">
+                <input placeholder ="Nombre" class="input-custom" type="text" name="nombre" id="nombre" value = {{$industria->nombre}}>
+                <label class = "custom-label" for="nombre">Nombre:</label>
+                </div>
+            <div class="div-square">
+                <button class="btn-primary" type="submit">Guardar</button>
+            </div>
+        </div>
     </form>
     @include('fragment._errors-form')
+</div>
 @endsection

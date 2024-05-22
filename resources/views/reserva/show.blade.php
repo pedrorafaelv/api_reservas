@@ -1,26 +1,26 @@
 @extends('layout')
 @section('content')
-<h3>Detalle de la reserva: {{$reserva->id}}</h3>
-<table>
-    <thead>
-        <td>Id</td>
-        <td>Empresa</td>
-        <td>Fecha Inicio</td>
-        <td>Fecha Fin</td>
-        <td>Cliente</td>
-        <td>Recurso</td>
-        <td>Estado</td>
-    </thead>
-    <tbody>
-        <tr>
-          <td>{{$reserva->id}}</td>
-          <td>{{$reserva->empresa->nombre}}</td>
-          <td>{{$reserva->fecha_inicio}}</td>
-          <td>{{$reserva->fecha_fin}}</td>
-          <td>{{$reserva->cliente->nombre}}</td>
-          <td>{{$reserva->recurso->nombre}}</td>
-          <td>{{$reserva->estado->nombre}}</td>
-        </tr>
-    </tbody>
-</table>
-@endsection
+<div class="custom-container">
+    <h3>Detalle de la reserva: {{$reserva->id}}</h3>
+</div>
+<div class="custom-container">
+    <div class=" grid grid-cols-7 custom-grid">
+        <div>Id</div>
+        <div>Empresa</div>
+        <div>Fecha Inicio</div>
+        <div>Fecha Fin</div>
+        <div>Cliente</div>
+        <div>Recurso</div>
+        <div>Estado</div>
+    </div>
+    <div class=" grid grid-cols-7 custom-grid">
+        <div>{{$reserva->id}}</div>
+        <div>{{$reserva->empresa->nombre}}</div>
+        <div>{{$reserva->fecha_inicio}}</div>
+        <div>{{$reserva->fecha_fin}}</div>
+        <div>{{$reserva->cliente->nombre}}</div>
+        <div>{{$reserva->recurso->nombre}}</div>
+        <div>{{$reserva->estado->nombre}}</div>
+    </div>
+</div>
+          @endsection

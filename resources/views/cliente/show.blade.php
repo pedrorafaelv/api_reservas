@@ -1,24 +1,23 @@
 @extends('layout')
-
 @section('content')
-<h3>Detalle del cliente: {{$cliente->nombre}}</h3>
-<table>
-    <thead>
-        <td>Id</td>
-        <td>Nombre</td>
-        <td>Teléfono</td>
-        <td>@Email</td>
-    </thead>
-    <tbody>
-        <tr>
-          <td>{{$cliente->id}}</td>
-          <td>{{$cliente->nombre}}</td>
-          <td>{{$cliente->telefono}}</td>
-          <td>{{$cliente->email}}</td>
-        </tr>
+<div class="custom-container">
+    <h3>Detalle del cliente: {{$cliente->nombre}}</h3>
+</div>
+<div class="custom-container">
+    <div class="grid grid-cols-4 custom-grid">
+        <div>Id</div>
+        <div>Nombre</div>
+        <div>Teléfono</div>
+        <div>@Email</div>
+    </div>
+    <div class="grid grid-cols-4 custom-grid">
+            <div>{{$cliente->id}}</div>
+            <div>{{$cliente->nombre}}</div>
+            <div>{{$cliente->telefono}}</div>
+            <div>{{$cliente->email}}</div>
+    </div>
+    @include('fragment._errors-form')
 
-    </tbody>
-@include('fragment._errors-form')
-
+</div>
 @endsection
 

@@ -1,39 +1,61 @@
 @extends('layout')
 @section('content')
- <h3>Listado de Empresas</h3>
- <a href="{{ route("empresa.create")}}">Nueva Empresa</a>
-
- <table>
-    <thead>
-        <td>Id</td>
-        <td>Nombre</td>
-        <td>Dirección</td>
-        <td>Teléfono</td>
-        <td>Email</td>
-        <td>Industria</td>
-        <td>Acciones</td>
-    </thead>
-    <tbody>
-        @foreach ($empresas as $empresa)
-        <tr>
-          <td>{{$empresa->id}}</td>
-          <td>{{$empresa->nombre}}</td>
-          <td>{{$empresa->direccion}}</td>
-          <td>{{$empresa->telefono}}</td>
-          <td>{{$empresa->email}}</td>
-          <td>{{$empresa->industria->nombre}}</td>
-          <td>
-            <a href="{{ route("empresa.edit", $empresa->id)}}">Editar</a>
-            <a href="{{ route("empresa.show", $empresa->id)}}">Ver</a>
+ <div class="custom-container">
+     <a  class= "btn-primary" href="{{ route("empresa.create")}}">Nueva Empresa</a>
+ </div>
+<div class="custom-container">
+    <div class="grid grid-cols-6 gap-1 custom-grid">
+        <div class="table-header">
+            <p class="header-tittle">
+                Nombre
+            </p>
+        </div>
+        <div class="table-header">
+            <p class="header-tittle">
+                Dirección
+            </p>
+        </div>
+        <div class="table-header">
+            <p class="header-tittle">
+                Teléfono
+            </p>
+        </div>
+        <div class="table-header">
+            <p class="header-tittle">
+                Email
+            </p>
+        </div>
+        <div class="table-header">
+            <p class="header-tittle">
+                Industria
+            </p>
+        </div>
+        <div class="table-header">
+            <p class="header-tittle">
+                Acciones
+            </p>
+        </div>
+    </div>
+    @foreach ($empresas as $empresa)
+    <div class="grid grid-cols-6 gap-2 custom-grid">
+        <div>{{$empresa->nombre}}</div>
+        <div>{{$empresa->direccion}}</div>
+        <div>{{$empresa->telefono}}</div>
+        <div>{{$empresa->email}}</div>
+        <div>{{$empresa->industria->nombre}}</div>
+        <div class="p-1">
             <form action="{{ route("empresa.destroy", $empresa->id)}}" method="POST">
+            <a class="btn-secondary" href="{{ route("empresa.edit", $empresa->id)}}"><i class="fas fa-edit"></i></a>
+            <a class="btn-primary" href="{{ route("empresa.show", $empresa->id)}}"><i class="fas fa-eye"></i></a>
                 @csrf
                 @method('delete')
-                <button type="submit">Eliminar</button>
+                <button type="submit"  class="btn-danger"> <i class="fas fa-trash-alt"></i></button>
             </form>
-        </td>
-        </tr>
-            @endforeach
-        </tbody>
-    </table>
-{{$empresas->links()}}
+        </div>
+    </div>
+    @endforeach
+    <div class="table-footer">
+        {{$empresas->links()}}
+    </div>
+</div>
 @endsection

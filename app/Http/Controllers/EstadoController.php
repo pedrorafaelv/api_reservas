@@ -5,6 +5,8 @@ use  App\Http\Requests\Estado\PutRequest;
 use  App\Http\Requests\Estado\StoreRequest;
 use App\Models\Estado;
 use App\Models\Entidad;
+use App\Models\TipoRecurso;
+
 class EstadoController extends Controller
 {
     /**
@@ -25,10 +27,10 @@ class EstadoController extends Controller
      */
     public function create()
     {
-        $entidads = Entidad::pluck('nombre', 'id')->toArray();
+        $tiporecursos = TipoRecurso::pluck('nombre', 'id')->toArray();
 
         // $entidads = Entidad::all();
-        return view('estado.create', compact('entidads'));
+        return view('estado.create', compact('tiporecursos'));
     }
 
     /**
@@ -46,8 +48,8 @@ class EstadoController extends Controller
         if (!$exito) {
             // Si no se pudo guardar la empresa, redireccionar con un mensaje de error
         }
-        $request->session()->flash('status', 'Estado creado correctamente');
-        return redirect()->route('estado.show', ['estado'=>$estado]);
+        // $request->session()->flash('status', 'Estado creado correctamente');
+        return redirect()->route('estado.show', ['estado'=>$estado])->with('status', 'Estado creado correctamente');
     }
 
     /**
@@ -69,8 +71,10 @@ class EstadoController extends Controller
      */
     public function edit(Estado $estado)
     {
-        $entidads = Entidad::pluck('nombre', 'id')->toArray();
-        return view('estado.edit', compact('estado', 'entidads'));
+        // $entidads = Entidad::pluck('nombre', 'id')->toArray();
+        $tiporecursos = TipoRecurso::pluck('nombre', 'id')->toArray();
+
+        return view('estado.edit', compact('estado', 'tiporecursos'));
     }
 
     /**
@@ -83,8 +87,8 @@ class EstadoController extends Controller
     public function update(PutRequest $request, Estado $estado)
     {
         $estado->update($request->validated());
-        $request->session()->flash('status', 'Estado actualizado exitosamente');
-        return redirect()->route('estado.show', [ 'estado'=> $estado]);
+        // $request->session();
+        return redirect()->route('estado.show', [ 'estado'=> $estado])->with('status', 'Estado actualizado exitosamente');
 
     }
 

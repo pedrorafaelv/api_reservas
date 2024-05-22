@@ -1,3 +1,133 @@
+@import "@fortawesome/fontawesome-free/css/all.css";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@layer components {
+    .btn-primary {
+        @apply bg-blue-500 text-white font-bold py-2 px-4 rounded inline-flex items-center;
+    }
+    .btn-primary:hover {
+        @apply bg-blue-700 border-blue-300 rounded-full;
+    }
+    .btn-secondary {
+        @apply bg-yellow-500 text-white font-bold py-2 px-4 rounded inline-flex items-center;
+    }
+    .btn-secondary:hover {
+        @apply bg-yellow-700 border-yellow-300 rounded-full;
+    }
+    .btn-danger {
+        @apply bg-red-500 text-white font-bold py-2 px-4 rounded inline-flex items-center;
+    }
+    .btn-danger:hover {
+        @apply bg-red-700 border-red-300 rounded-full;
+    }
+    .btn-warning {
+        @apply py-1 px-1 bg-yellow-500 text-gray-200 font-extralight border border-gray-300 rounded-full shadow;
+    }
+    .btn-warning:hover {
+        @apply bg-yellow-400 border-yellow-500 rounded-full;
+    }
+    .table-header {
+        @apply p-4 transition-colors cursor-pointer border-y border-gray-300 bg-gray-50;
+    }
+    .table-header:hover {
+        @apply bg-gray-50;
+    }
+    .btn-lg-primary {
+        @apply bg-blue-600 text-white shadow px-2 py-1 rounded-xl relative;
+    }
+    .btn-lg-primary:hover {
+        @apply bg-blue-400 border-blue-500 rounded-full;
+    }
+    .header-tittle {
+        @apply flex items-center justify-between gap-2 font-sans text-sm antialiased font-normal leading-none text-gray-900 opacity-70;
+    }
+    .header-link {
+        @apply flex items-center gap-2 rounded-lg border border-transparent px-3 py-2 text-sm font-medium text-gray-800;
+    }
+    .div-square {
+        @apply relative w-full min-w-[200px] h-10;
+    }
+    .btn-custom {
+        @apply px-6 py-4;
+    }
+    .table-body {
+        @apply p-1 border-b border-gray-50;
+    }
+    .body-tittle {
+        @apply block font-sans text-sm antialiased font-normal leading-normal text-gray-900;
+    }
+    .table-footer {
+        @apply relative flex flex-col w-full h-full text-gray-700 bg-teal-50 shadow-md rounded-xl bg-clip-border;
+    }
+    .input-custom {
+        @apply w-full h-full bg-transparent text-gray-700 font-sans font-normal outline outline-0 border-0;
+    }
+    .input-custom:focus {
+        @apply outline-0 border-2 border-t-transparent text-sm px-3 py-2.5 rounded-[7px] border-blue-200;
+    }
+    .input-custom:disabled {
+        @apply bg-gray-50 border-0 transition-all;
+    }
+    .input-custom:placeholder-shown {
+        @apply border-gray-200 border-t-gray-200 border;
+    }
+    .custom-label {
+        @apply flex w-full h-full select-none pointer-events-none absolute left-0 font-normal !overflow-visible truncate leading-tight transition-all -top-1.5 text-[11px] text-gray-400;
+        content: ' ';
+        display: block;
+        box-sizing: border-box;
+        width: 0.625rem;
+        /* before:w-2.5 */
+        height: 0.375rem;
+        /* before:h-1.5 */
+        margin-top: 0.40625rem;
+        /* before:mt-[6.5px] */
+        margin-right: 0.25rem;
+        /* before:mr-1 */
+        border-top: 1px solid #cbd5e1;
+        /* before:border-t blue-gray-200 */
+        border-left: 1px solid #cbd5e1;
+        /* before:border-l blue-gray-200 */
+        border-top-left-radius: 0.375rem;
+        /* before:rounded-tl-md */
+        transition: all 0.2s;
+        /* before:transition-all */
+        pointer-events: none;
+        /* before:pointer-events-none */
+    }
+    .peer-placeholder-shown .custom-label {
+        @apply text-gray-500 text-sm leading-[3.75];
+    }
+    .peer-focus .custom-label {
+        @apply leading-tight text-[11px];
+        color: #3b82f6;
+        /* text-blue-500 */
+    }
+    .peer-focus .custom-label::before,
+    .peer-focus .custom-label::after {
+        border-top-width: 2px;
+        border-left-width: 2px;
+        border-right-width: 2px;
+        border-color: #3b82f6;
+        /* before:border-blue-500 */
+    }
+    .peer-disabled .custom-label {
+        @apply text-transparent;
+    }
+    .peer-disabled.peer-placeholder-shown .custom-label {
+        @apply text-blue-500;
+    }
+    .peer-disabled .custom-label::before,
+    .peer-disabled .custom-label::after,
+    .peer-placeholder-shown .custom-label::before,
+    .peer-placeholder-shown .custom-label::after {
+        border-color: transparent;
+    }
+    .custom-container {
+        @apply container p-3 border-2 rounded-lg w-full h-full text-gray-700 bg-white shadow-md bg-clip-border;
+    }
+    .custom-grid {
+        @apply w-full mt-4 text-left table-auto min-w-max bg-gray-50;
+    }
+}

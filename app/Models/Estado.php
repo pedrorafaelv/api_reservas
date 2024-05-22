@@ -9,7 +9,7 @@ class Estado extends Model
 {
     use HasFactory;
     protected $fillable = [
-         'entidad_id', 'nombre'
+         'tipo_recurso_id', 'nombre'
             ];
 
     public function recurso()
@@ -20,8 +20,8 @@ class Estado extends Model
     {
         return $this->hasMany(reserva::class);
     }
-    public function entidad()
+    public function tipoRecurso()
     {
-        return $this->belongsTo(Entidad::class);
+        return $this->belongsTo(TipoRecurso::class);
     }
 }
