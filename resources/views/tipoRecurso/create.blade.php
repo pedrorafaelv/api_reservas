@@ -1,11 +1,21 @@
 @extends('layout')
 @section('content')
-    <h1>Tipo de Recurso</h1>
+<div class="custom-container">
+    <h3>Tipo de Recurso</h3>
+</div>
+<div class="custom-container">
     <form action="{{ route('tiporecurso.store') }}" method="POST">
         @csrf
-        <label for="nombre">Nombre:</label>
-        <input type="text" name="nombre" id="nombre">
-        <button type="submit">Guardar</button>
+        <div class="grid grid-cols-4 custom-grid gap-2" >
+            <div class="div-square col-start-2">
+                <input class="input-custom" placeholder="Nombre" type="text" name="nombre" id="nombre">
+                <label class="custom-label" for="nombre">Nombre:</label>
+            </div>
+            <div class="div-square">
+                <button class="btn-primary" type="submit">Guardar</button>
+            </div>
+        </div>
     </form>
     @include('fragment._errors-form')
+</div>
 @endsection

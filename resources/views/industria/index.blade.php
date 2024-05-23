@@ -6,8 +6,8 @@
     <a class= "btn-primary" href="{{ route("industria.create")}}">Nueva Industria</a>
 </div>
 <div class="custom-container">
-    <div class="grid grid-cols-2 gap-2 custom-grid">
-        <div class="table-header">
+    <div class="grid grid-cols-4 custom-grid">
+        <div class="table-header col-start-2">
             <div class="header-tittle">
                 Nombre
             </div>
@@ -19,8 +19,8 @@
         </div>
     </div>
     @foreach ($industrias as $industria)
-    <div class="grid grid-cols-2 custom-grid">
-        <div>{{$industria->nombre}}</div>
+    <div class="grid grid-cols-4 custom-grid">
+        <div class="col-start-2">{{$industria->nombre}}</div>
         <div class="p-1">
             <form action="{{ route("industria.destroy", $industria->id)}}" method="post">
                 <a class= "btn-secondary" href="{{ route("industria.edit",['industrium'=> $industria->id])}}"><i class="fas fa-edit"></i></a>

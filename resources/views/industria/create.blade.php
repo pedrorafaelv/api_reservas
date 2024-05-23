@@ -1,12 +1,22 @@
 @extends('layout')
 
 @section('content')
-<h3>Nueva Industria</h3>
+<div class="custom-container">
+    <h3>Nueva Industria</h3>
+</div>
+<div class="custom-container">
     <form action="{{ route('industria.store') }}" method="POST">
         @csrf
-        <label for="nombre">Nombre:</label>
-        <input type="text" name="nombre" id="nombre" value= "{{old("nombre", 'Sin nombre')}}">
-        <button type="submit">Guardar</button>
+        <div class="grid grid-cols-4 custom-grid gap-2">
+            <div class="div-square col-start-2">
+                <label class="custom-label" for="nombre">Nombre:</label>
+                <input class="input-custom" placeholder="Nombre" type="text" name="nombre" id="nombre" value= "{{old("nombre", 'Sin nombre')}}">
+            </div>
+            <div class="div-square">
+                <button class="btn-primary" type="submit">Guardar</button>
+            </div>
+        </div>
     </form>
     @include('fragment._errors-form')
+</div>
 @endsection
