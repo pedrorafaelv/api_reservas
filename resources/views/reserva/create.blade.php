@@ -10,11 +10,37 @@
         @csrf
         <div class="grid grid-cols-5 custom-grid gap-2">
             <div class="div-square col-start-2">
+                <label class="custom-label" for="cliente_id">Cliente</label>
+                <select class="input-custom" placeholder="Cliente" name="cliente_id" id="cliente_id">
+                    @foreach ($clientes as $id=> $nombre)
+                    <option {{old("cliente_id", " ") == $id ? "selected" : "" }} value="{{$id}}">{{$nombre}}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="div-square ">
                 <label class="custom-label" for="empresa_id">Empresa</label>
                 <select class="input-custom" placeholder="Recurso" onchange="cargarRecurso(this)" name="empresa_id" id="empresa_id">
                     @foreach ($empresas as $id=> $nombre)
                     <option {{old("empresa_id", " ") == $id ? "selected" : "" }} value="{{$id}}">{{$nombre}}</option>
                     @endforeach
+                </select>
+            </div>
+            <div class="div-square">
+                <label class="custom-label" for="recurso_id">Recurso</label>
+                <select class="input-custom" placeholder="Recurso" onchange="cargarEstados(this)" name="recurso_id" id="recurso_id">
+                    <option value="">Seleccione una Opcion</option>
+                </select>
+            </div>
+        </div>
+        <div class="grid grid-cols-5 custom-grid gap-2">
+
+            <div class="div-square col-start-2">
+                <label class="custom-label" for="estado_id">Estado</label>
+                <select  class="input-custom" placeholder="Estado" name="estado_id" id="estado_id">
+                    <option value="">Seleccione una Opcion</option>
+                    {{--  @foreach ($estados as $id=> $nombre)
+                    <option {{old("estado_id", " ") == $id ? "selected" : "" }} value="{{$id}}">{{$nombre}}</option>
+                    @endforeach  --}}
                 </select>
             </div>
             <div class="div-square">
@@ -24,30 +50,6 @@
             <div class="div-square">
                 <label class="custom-label" for="fecha_fin">Fecha fin</label>
                 <input class="input-custom" placeholder="Fecha Fin" type="datetime-local" name="fecha_fin" id="fecha_fin" value= "{{old("fecha_fin")}}">
-            </div>
-        </div>
-        <div class="grid grid-cols-5 custom-grid gap-2">
-            <div class="div-square col-start-2">
-                <label class="custom-label" for="cliente_id">Cliente</label>
-                <select class="input-custom" placeholder="Cliente" name="cliente_id" id="cliente_id">
-                    @foreach ($clientes as $id=> $nombre)
-                    <option {{old("cliente_id", " ") == $id ? "selected" : "" }} value="{{$id}}">{{$nombre}}</option>
-                    @endforeach
-                </select>
-            </div>
-            <div class="div-square">
-                <label class="custom-label" for="recurso_id">Recurso</label>
-                <select class="input-custom" placeholder="Recurso" onchange="cargarEstados(this)" name="recurso_id" id="recurso_id">
-                    <option value="">Seleccione un recurso</option>
-                </select>
-            </div>
-            <div class="div-square">
-                <label class="custom-label" for="estado_id">Estado</label>
-                <select  class="input-custom" placeholder="Estado" name="estado_id" id="estado_id">
-                    @foreach ($estados as $id=> $nombre)
-                    <option {{old("estado_id", " ") == $id ? "selected" : "" }} value="{{$id}}">{{$nombre}}</option>
-                    @endforeach
-                </select>
             </div>
         </div>
         <div class="grid grid-cols-5 custom-grid gap-2">
@@ -73,15 +75,20 @@
         }
 
   function buildRecursosSelect(jsonRecursos){
-        let RecursosSelect=document.getElementById('recurso_id');
+        let recursosSelect=document.getElementById('recurso_id');
+        if (!recursosSelect) {
+            console.error('Elemento con ID "recurso_id" no encontrado.');
+            return;
+        }
+        InicializaSelect('recurso_id');
+        InicializaSelect('estado_id');
         jsonRecursos.forEach(function(recurso){
             let optionTag = document.createElement('option');
             optionTag.value= recurso.id;
             optionTag.innerHTML=recurso.nombre;
-            RecursosSelect.append(optionTag);
+            recursosSelect.append(optionTag);
     })
   }
-
    function cargarEstados(recursos_select){
     let recursoId=recursos_select.value;
     fetch(`http://127.0.0.1:8000/recursos/${recursoId}/estados`)
@@ -94,13 +101,34 @@
    }
 
    function buildEstadoSelect(jsonEstados){
-    let estadosSelect=documen.getElementById('estado_id');
+    let estadosSelect=document.getElementById('estado_id');
+    if (!estadosSelect) {
+        console.error('Elemento con ID "estado_id" no encontrado.');
+        return;
+    }
+    InicializaSelect('estado_id');
     jsonEstados.forEach(function(estado){
         let optionTag = document.createElement('option');
         optionTag.value= estado.id;
-        optionTag.innerHTML=esatdo.nombre;
+        optionTag.innerHTML=estado.nombre;
         estadosSelect.append(optionTag);
     })
    }
+
+   function InicializaSelect(id){
+    let seleccion = document.getElementById(id);
+    if(!seleccion){
+      console.error('Elemento con ID "recurso_id" no encontrado.');
+      return;
+   }
+   seleccion.innerHTML="";
+   let optionTag=document.createElement('option');
+   optionTag.value ="";
+   optionTag.innerHTML="selecciona una Opcion";
+   seleccion.append(optionTag);
+  }
+
+
+
  </script>
 <script src="{{ asset('js/recursos.js')}}"></script>

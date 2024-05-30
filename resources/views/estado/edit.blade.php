@@ -10,7 +10,7 @@
         @method('put')
         <div class="grid grid-cols-4 gap-2 custom-grid">
             <div class="div-square col-start-2">
-                <select placeholder="" class="input-custom" name="tipo_recurso_id" id="tipo_recurso_id">
+                <select placeholder="Tipo de Recurso" class="input-custom" name="tipo_recurso_id" id="tipo_recurso_id">
                     @foreach ($tiporecursos as $id=> $nombre)
                     <option {{$estado->tipo_recurso_id == $id ? 'selected':''}} value="{{$id}}">{{$nombre}}</option>
                     @endforeach

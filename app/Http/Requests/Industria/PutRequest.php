@@ -32,4 +32,10 @@ class PutRequest extends FormRequest
             ],
         ];
     }
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'nombre' => capitalizeEachWord($this->input('nombre')),
+        ]);
+    }
 }

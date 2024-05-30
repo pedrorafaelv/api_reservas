@@ -43,7 +43,6 @@ class TipoRecursoController extends Controller
         if (!$exito) {
 
         }
-        $request->session()->flash('status', 'Tipo de recurso creado correctamente');
         return redirect()->route('tiporecurso.index')->with('status', 'Tipo de Recurso creado correctamente.');
 
         // return redirect('tipoRecurso.show', compact('tiporecurso'));
@@ -83,8 +82,7 @@ class TipoRecursoController extends Controller
     public function update(PutRequest $request, TipoRecurso $tiporecurso)
     {
         $tiporecurso->update();
-        $request->session()->flash('status', 'Tipo de recurso actualizado exitosamente');
-        return redirect()->route('tiporecurso.show', ['tiporecurso' => $tiporecurso]);
+        return redirect()->route('tiporecurso.show', ['tiporecurso' => $tiporecurso])->whit('status', 'Tipo de recurso actualizado exitosamente');
     }
 
     /**

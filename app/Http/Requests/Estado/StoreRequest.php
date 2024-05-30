@@ -3,6 +3,8 @@
 namespace App\Http\Requests\Estado;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
+
 
 class StoreRequest extends FormRequest
 {
@@ -23,10 +25,21 @@ class StoreRequest extends FormRequest
      */
     public function rules()
     {
-        $data = $this->route();
+        // $data = $this->route();
         return [
-            'entidad_id' => ['required','numeric'],
-            'nombre' => ['required', 'min:5','unique_combined:estados,entidad_id,nombre'],
+            'tipo_recurso_id' => ['required','numeric'],
+            'nombre'=>['min:5', 'max:255', 'required', Rule::unique('estados')->where(function ($query) {
+                // Validar que el nombre no esté repetido para el mismo tipo_recurso_id
+                return $query->where('tipo_recurso_id', $this->tipo_recurso_id);
+            }),]
         ];
+    }
+
+    //capitaliza el nombre
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'nombre' => capitalizeEachWord($this->input('nombre')),
+        ]);
     }
 }

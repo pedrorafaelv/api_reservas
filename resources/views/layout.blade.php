@@ -20,20 +20,19 @@
             @include('layouts.navigation')
 
             <!-- Page Heading -->
-            {{--  @if (isset($header))  --}}
+            @if (isset($header))
                 <header class="bg-white dark:bg-gray-800 shadow">
                     <div class="max-w-7xl mx-auto p-2 sm:px-6 lg:px-8">
-                        {{--  {{ $header }}  --}}
+                        {{ $header }}
                     </div>
                 </header>
-            {{--  @endif  --}}
+            @endif
     @if (session('status'))
-    <div class="alert alert-success">
+    <div class="alert alert-success bg-white custom-container  dark:bg-gray-800 text-white shadow">
         {{session('status')}}
     </div>
     @endif
     <div class="container">
-
         @yield('content')
     </div>
 

@@ -11,7 +11,7 @@
     <div class="grid grid-cols-4 gap-1 custom-grid">
         <div class="div-square">
             <label class="custom-label" for="nombre">Nombre:</label>
-            <input class="input-custom" placeholder="nombre" type="text" name="nombre" id="nombre" value= "{{old("nombre", 'Sin Nombre')}}">
+            <input class="input-custom" placeholder="nombre" type="text" name="nombre" id="nombre" value= "{{old("nombre", '')}}">
         </div>
         <div class="div-square">
             <label class="custom-label" for="direccion">Direccion:</label>
@@ -55,7 +55,7 @@
         </div>
         <div class="div-square">
             <label class="custom-label" for="time_start">Time Start:</label>
-            <input class="input-custom" placeholder="time_start" type="time" name="time_start" id="times_start" value= "{{old("times_start")}}">
+            <input class="input-custom" placeholder="time_start" type="time" name="time_start" id="time_start" value= "{{old("time_start")}}">
         </div>
         <div class="div-square">
             <label class="custom-label" for="time_off">Time Off:</label>

@@ -1,13 +1,25 @@
 @extends('layout')
 @section('content')
-<div class="custom-container">
-    <a class="btn-primary" href="{{ route("estado.create")}}">Nuevo Estado</a>
+<div class="custom-container h-16">
+    <div class="grid grid-cols-5">
+        <div>
+            <a class="btn-primary" href="{{ route("estado.create")}}">Nuevo Estado</a>
+        </div>
+        <div class="">
+            <label class="custom-label" for="filtar">Fitrar</label>
+            <select class="input-custom" placeholder="Filtrar"  name="filtro" id="filtro" onchange="" title="Filtrar">
+                @foreach ($tiporecursos as $id=> $nombre)
+                <option {{old("tipo_recurso_id", " ") == $id ? "selected" : "" }} value="{{$id}}">{{$nombre}}</option>
+                @endforeach
+            </select>
+        </div>
+    </div>
 </div>
 <div class="custom-container">
     <div class="grid grid-cols-3 gap-1 custom-grid">
         <div class="table-header">
             <div class="header-tittle">
-                Entidad
+                Tipo de Recurso
             </div>
         </div>
         <div class="table-header">

@@ -24,7 +24,7 @@ class PutRequest extends FormRequest
     public function rules()
     {
         return [
-            'nombre'=>['required', 'min:5', 'max:255', 'unique:recursos,nombre,'.$this->route("recurso")->id],
+            'nombre'=>['required', 'min:5', 'max:255', 'unique:tipo_recursos,nombre,'.$this->route("tiporecurso")->id],
         ];
     }
 }

@@ -72,7 +72,7 @@ class AppServiceProvider extends ServiceProvider
             if ($exceptId) {
                 $query->where('id', '!=', $exceptId);
             }
-
+            // print_r($query->exists());
             return $query->exists() ? false : true;
         });
 

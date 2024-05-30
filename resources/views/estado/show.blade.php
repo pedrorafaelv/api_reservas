@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('content')
-<div class="custom-container">
+<div class="custom-container h-12">
     <h3>Detalle del Estado: {{$estado->nombre}}</h3>
 </div>
 <div class="custom-container">

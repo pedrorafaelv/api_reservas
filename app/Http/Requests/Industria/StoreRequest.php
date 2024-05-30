@@ -27,4 +27,10 @@ class StoreRequest extends FormRequest
             'nombre'=>['required', 'min:5', 'max:255', 'unique:industrias,nombre']
         ];
     }
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'nombre' => capitalizeEachWord($this->input('nombre')),
+        ]);
+    }
 }

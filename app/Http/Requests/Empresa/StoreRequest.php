@@ -23,16 +23,23 @@ class StoreRequest extends FormRequest
      */
     public function rules()
     {
-        // // dd($request);
-
+        //  dd($request);
         return [
-            'nombre' =>[ 'required','string', 'min:5','max:255','unique:empresas,nombre'],
-            'direccion' => ['required','string','max:255'],
-            'telefono' => ['required','string','max:20'],
-            'email' => ['required','string','email','max:255|unique:empresas,email'],
+            'nombre'       => ['required','string', 'min:5','max:255','unique:empresas,nombre'],
+            'direccion'    => ['required','string','max:255'],
+            'telefono'     => ['required','string','max:20'],
+            'email'        => ['required','string','email','max:255', 'unique:empresas,email'],
             'industria_id' => ['required','numeric','exists:industrias,id'],
-            'fundacion' => ['required','date'],
+            'fundacion'    => ['required','date'],
+            'time_start'   => ['nullable','regex:/^([01][0-9]|2[0-3]):[0-5][0-9]$/'],
+            'time_off'     => ['nullable','regex:/^([01][0-9]|2[0-3]):[0-5][0-9]$/'],
         ];
-        //  return true;
+    }
+
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'nombre' => capitalizeEachWord($this->input('nombre')),
+        ]);
     }
 }

@@ -6,6 +6,7 @@ use  App\Http\Requests\Estado\StoreRequest;
 use App\Models\Estado;
 use App\Models\Entidad;
 use App\Models\TipoRecurso;
+use TipoRecursos;
 
 class EstadoController extends Controller
 {
@@ -16,8 +17,9 @@ class EstadoController extends Controller
      */
     public function index()
     {
+        $tiporecursos = TipoRecurso::pluck('nombre', 'id')->toArray();
         $estados = Estado::paginate(8);
-        return view('estado.index', compact('estados'));
+        return view('estado.index', compact('estados', 'tiporecursos'));
     }
 
     /**
@@ -44,12 +46,12 @@ class EstadoController extends Controller
 
         $estado = new Estado();
         $estado->fill($request->all());
-        $exito = $estado->save();
-        if (!$exito) {
+        print_r($request['nombre']);
+         $exito = $estado->save();
+         if (!$exito) {
             // Si no se pudo guardar la empresa, redireccionar con un mensaje de error
-        }
-        // $request->session()->flash('status', 'Estado creado correctamente');
-        return redirect()->route('estado.show', ['estado'=>$estado])->with('status', 'Estado creado correctamente');
+         }
+         return redirect()->route('estado.show', ['estado'=>$estado])->with('status', 'Estado creado correctamente');
     }
 
     /**
@@ -87,7 +89,7 @@ class EstadoController extends Controller
     public function update(PutRequest $request, Estado $estado)
     {
         $estado->update($request->validated());
-        // $request->session();
+        //print_r($request->validated());
         return redirect()->route('estado.show', [ 'estado'=> $estado])->with('status', 'Estado actualizado exitosamente');
 
     }

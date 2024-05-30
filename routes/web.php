@@ -13,6 +13,7 @@ use App\Http\Controllers\ReservaController;
 use App\Http\Controllers\TipoRecursoController;
  use App\Models\Empresa;
  use App\Models\Recurso;
+ use App\Models\TipoRecurso;
  use App\Models\Estado;
  use Illuminate\Database\Eloquent\Model;
 
@@ -60,11 +61,28 @@ Route::post('/industria', [IndustriaController::class, 'store'])->name('industri
 
 
 Route::get('empresas/{id}/recursos', function ($id){
-$empresa = Empresa::find($id);
- return Recurso::where('empresa_id', $empresa->id)->get();
+    $empresa = Empresa::find($id);
+    return Recurso::where('empresa_id', $empresa->id)->get();
 });
 
 Route::get('recursos/{id}/estados', function ($id){
     $recurso = Recurso::find($id);
-     return Estado::where('entidad_id', $recurso->tipo_recurso_id)->get();
-    });
+     return Estado::where('tipo_recurso_id', $recurso->tipo_recurso_id)->get();
+});
+
+Route::get('tiporecursos/{id}/estados', function ($id){
+    $tiporecurso = TipoRecurso::find($id);
+    return Estado::where('tipo_recurso_id', $tiporecurso->id)->get();
+});
+
+Route::get('empresas/{id}/tipoRecursos', function ($id){
+    Empresa::where('empresas.empresa_id', $id);
+    $tiposRecursos = TipoRecurso::select('tipo_recursos.id', 'tipo_recursos.nombre')
+    ->distinct()
+    ->join('recursos', 'tipo_recursos.id', '=', 'recursos.tipo_recurso_id')
+    ->join('empresas', 'empresas.id', '=', 'recursos.empresa_id')
+    ->where('empresas.id', $id)
+    ->get();
+
+    return $tiposRecursos;
+});
