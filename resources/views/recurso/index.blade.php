@@ -1,63 +1,75 @@
 @extends('layout')
 
 @section('content')
-<div class="custom-container">
-    <a class="btn-primary" href="{{ route("recurso.create")}}">Nuevo Recurso</a>
+<div class="custom-container h-16">
+    <a class="btn-link" href="{{ route("recurso.create")}}">Nuevo Recurso</a>
 </div>
 <div class="custom-container">
-    <div class="grid grid-cols-6 gap-1 custom-grid">
-        <div class="table-header">
-            <div class="header-tittle">
-                Empresa
-            </div>
-        </div>
-        <div class="table-header">
-            <div class="header-tittle">
-                Tipo Recurso
-            </div>
-        </div>
-        <div class="table-header">
-            <div class="header-tittle">
-                Nombre
-            </div>
-        </div>
-        <div class="table-header">
-            <div class="header-tittle">
-                Estado
-            </div>
-        </div>
-        <div class="table-header">
-            <div class="header-tittle">
-                Formato Tiempo
-            </div>
-        </div>
-        <div class="table-header">
-            <div class="header-tittle">
-                Acciones
-            </div>
+    <div class=" grid grid_cols-5">
+        <div class="col-start-2">
+            <table>
+                <thead>
+                    <th class="table-header p-3">
+                        <p class="header-tittle">
+                            Empresa
+                        </p>
+                    </th>
+                    <th class="table-header p-3">
+                        <p class="header-tittle">
+                            Tipo Recurso
+                        </p>
+                    </th>
+                    <th class="table-header p-3">
+                        <p class="header-tittle">
+                            Nombre
+                        </p>
+                    </th>
+                    <th class="table-header p-3">
+                        <p class="header-tittle">
+                            Estado
+                        </p>
+                    </th>
+                    <th class="table-header p-3">
+                        <p class="header-tittle">
+                            Formato de Tiempo
+                        </p>
+                    </th>
+                    <th class="table-header p-3">
+                        <p class="header-tittle">
+                            Acciones
+                        </p>
+                    </th>
+                </thead>
+                <tbody>
+                    @foreach ($recursos as $recurso)
+                    <tr>
+                        <td class="p-3">{{$recurso->empresa->nombre}}</td>
+                        <td class="p-3">{{$recurso->tiporecurso->nombre}}</td>
+                        <td class="p-3">{{$recurso->nombre}}</td>
+                        <td class="p-3">{{$recurso->estado->nombre}}</td>
+                        <td class="p-3">{{$recurso->time_format_reserve}}</td>
+                        <td class="p-3" class="p-1">
+                        <form action="{{ route("recurso.destroy", $recurso->id)}}" method="post">
+                            <a class="btn-link" href="{{ route("recurso.edit", $recurso->id)}}"><i class="fas fa-edit"></i></a>
+                            <a class="btn-link"href="{{ route("recurso.show", $recurso->id)}}"><i class="fas fa-eye"></i></a>
+                                @csrf
+                                @method('delete')
+                                <button type="submit" class="btn-link"><i class="fas fa-trash-alt"></i></button>
+                            </form>
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+                <tfoot>
+                    <tr class= "table-footer">
+                        <td>
+                            {{$recursos->links()}}
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
         </div>
     </div>
-    @foreach ($recursos as $recurso)
-    <div class=" grid grid-cols-6 gap-1 custom-grid">
-        <div>{{$recurso->empresa->nombre}}</div>
-        <div>{{$recurso->tiporecurso->nombre}}</div>
-        <div>{{$recurso->nombre}}</div>
-        <div>{{$recurso->estado->nombre}}</div>
-        <div>{{$recurso->time_format_reserve}}</div>
-        <div class="p-1">
-        <form action="{{ route("recurso.destroy", $recurso->id)}}" method="post">
-            <a class="btn-secondary" href="{{ route("recurso.edit", $recurso->id)}}"><i class="fas fa-edit"></i></a>
-            <a class="btn-primary"href="{{ route("recurso.show", $recurso->id)}}"><i class="fas fa-eye"></i></a>
-                @csrf
-                @method('delete')
-                <button type="submit" class="btn-danger"><i class="fas fa-trash-alt"></i></button>
-            </form>
-        </div>
-    </div>
-    @endforeach
-     <div class="table-footer">
-         {{$recursos->links()}}
-     </div>
 </div>
 @endsection
 

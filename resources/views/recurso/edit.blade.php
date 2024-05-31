@@ -43,7 +43,7 @@
                 <input type="text" class="input-custom" placeholder="Formato de Tiempo" name="time_format_reserve" id="time_format_reserve" value ="{{$recurso->time_format_reserve}}">
             </div>
 
-            <button class= "btn-primary" type="submit">Guardar</button>
+            <button class= "btn-link" type="submit">Guardar</button>
         </div>
     </form>
     @include('fragment._errors-form')

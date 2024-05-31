@@ -52,7 +52,7 @@
                 <label class="custom-label" for="estado_id">Estado</label>
             </div>
           <div class="div-square">
-              <button class="btn-primary" type="submit">Guardar</button>
+              <button class="btn-link" type="submit">Guardar</button>
           </div>
         </div>
     </form>

@@ -21,7 +21,7 @@
                 <input class="input-custom" placeholder="Email" type="text" name="email" id="email" value= "{{old("email", '')}}">
             </div>
             <div>
-                <button type="submit" class= "btn-primary">Guardar</button>
+                <button type="submit" class= "btn-link">Guardar</button>
             </div>
         </div>
     </form>

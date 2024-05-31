@@ -21,7 +21,7 @@
                 <input  class="input-custom" placeholder="Estado" type="text" name="nombre" id="nombre" value= "{{old("nombre", '')}}">
             </div>
             <div class="div-square">
-                <button class="btn-primary" type="submit">Guardar</button>
+                <button class="btn-link" type="submit">Guardar</button>
             </div>
         </div>
         <div class="grid grid-cols-5  gap-2 custom-grid"  >

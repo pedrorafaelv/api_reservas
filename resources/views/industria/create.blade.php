@@ -13,7 +13,7 @@
                 <input class="input-custom" placeholder="Nombre" type="text" name="nombre" id="nombre" value= "{{old("nombre", '')}}">
             </div>
             <div class="div-square">
-                <button class="btn-primary" type="submit">Guardar</button>
+                <button class="btn-link" type="submit">Guardar</button>
             </div>
         </div>
     </form>

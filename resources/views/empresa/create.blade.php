@@ -64,7 +64,7 @@
     </div>
     <div class="grid grid-cols-5 custom-grid">
         <div class="div-square col-start-3">
-            <button class="btn-primary" type="submit">Guardar</button>
+            <button class="btn-link" type="submit">Guardar</button>
         </div>
     </div>
     </form>

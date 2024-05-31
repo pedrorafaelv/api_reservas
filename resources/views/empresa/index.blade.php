@@ -1,61 +1,73 @@
 @extends('layout')
 @section('content')
- <div class="custom-container">
-     <a  class= "btn-primary" href="{{ route("empresa.create")}}">Nueva Empresa</a>
+ <div class="custom-container h-16">
+     <a  class= "btn-link" href="{{ route("empresa.create")}}">Nueva Empresa</a>
  </div>
 <div class="custom-container">
-    <div class="grid grid-cols-6 gap-1 custom-grid">
-        <div class="table-header">
-            <p class="header-tittle">
-                Nombre
-            </p>
+    <div class=" grid grid-cols-5">
+        <div class="col-start-2">
+            <table>
+               <thead>
+                   <th class="table-header p-3">
+                       <p class="header-tittle">
+                           Nombre
+                       </p>
+                   </th>
+                   <th class="table-header p-3">
+                       <p class="header-tittle">
+                           Dirección
+                       </p>
+                   </th>
+                   <th class="table-header p-3">
+                       <p class="header-tittle">
+                           Teléfono
+                       </p>
+                   </th>
+                   <th class="table-header p-3">
+                       <p class="header-tittle">
+                           Email
+                       </p>
+                   </th>
+                   <th class="table-header p-3">
+                       <p class="header-tittle">
+                           Industria
+                       </p>
+                   </th>
+                   <th class="table-header p-3">
+                       <p class="header-tittle">
+                           Acciones
+                       </p>
+                   </th>
+               </thead>
+               <tbody>
+                   @foreach ($empresas as $empresa)
+                   <tr>
+                       <td class="p-3">{{$empresa->nombre}}</td>
+                       <td class="p-3">{{$empresa->direccion}}</td>
+                       <td class="p-3">{{$empresa->telefono}}</td>
+                       <td class="p-3">{{$empresa->email}}</td>
+                       <td class="p-3">{{$empresa->industria->nombre}}</td>
+                       <td class="p-3" class="p-1">
+                           <form action="{{ route("empresa.destroy", $empresa->id)}}" method="POST">
+                           <a class="btn-link" href="{{ route("empresa.edit", $empresa->id)}}"><i class="fas fa-edit"></i></a>
+                           <a class="btn-link" href="{{ route("empresa.show", $empresa->id)}}"><i class="fas fa-eye"></i></a>
+                               @csrf
+                               @method('delete')
+                               <button type="submit"  class="btn-link"> <i class="fas fa-trash-alt"></i></button>
+                           </form>
+                       </td>
+                   </tr>
+                   @endforeach
+               </tbody>
+               <tfoot>
+                   <tr class= "table-footer">
+                       <td class="col-span-4">
+                           {{$empresas->links()}}
+                       </td>
+                   </tr>
+               </tfoot>
+           </table>
         </div>
-        <div class="table-header">
-            <p class="header-tittle">
-                Dirección
-            </p>
-        </div>
-        <div class="table-header">
-            <p class="header-tittle">
-                Teléfono
-            </p>
-        </div>
-        <div class="table-header">
-            <p class="header-tittle">
-                Email
-            </p>
-        </div>
-        <div class="table-header">
-            <p class="header-tittle">
-                Industria
-            </p>
-        </div>
-        <div class="table-header">
-            <p class="header-tittle">
-                Acciones
-            </p>
-        </div>
-    </div>
-    @foreach ($empresas as $empresa)
-    <div class="grid grid-cols-6 gap-2 custom-grid">
-        <div>{{$empresa->nombre}}</div>
-        <div>{{$empresa->direccion}}</div>
-        <div>{{$empresa->telefono}}</div>
-        <div>{{$empresa->email}}</div>
-        <div>{{$empresa->industria->nombre}}</div>
-        <div class="p-1">
-            <form action="{{ route("empresa.destroy", $empresa->id)}}" method="POST">
-            <a class="btn-secondary" href="{{ route("empresa.edit", $empresa->id)}}"><i class="fas fa-edit"></i></a>
-            <a class="btn-primary" href="{{ route("empresa.show", $empresa->id)}}"><i class="fas fa-eye"></i></a>
-                @csrf
-                @method('delete')
-                <button type="submit"  class="btn-danger"> <i class="fas fa-trash-alt"></i></button>
-            </form>
-        </div>
-    </div>
-    @endforeach
-    <div class="table-footer">
-        {{$empresas->links()}}
     </div>
 </div>
 @endsection

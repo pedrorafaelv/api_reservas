@@ -1,6 +1,6 @@
 @extends('layout')
 @section('content')
-<div class="custom-container">
+<div class="custom-container h-16">
     <h3>Editar Tipo de Recurso{{$tiporecurso->nombre}}</h3>
 </div>
 <div class="custom-container">
@@ -13,7 +13,7 @@
                 <label class="custom-label" for="nombre">Nombre:</label>
             </div>
             <div class="div-square">
-                <button type="submit" class="btn-primary">Guardar</button>
+                <button type="submit" class="btn-link">Guardar</button>
             </div>
         </div>
     </form>

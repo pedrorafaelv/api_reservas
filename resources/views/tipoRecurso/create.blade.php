@@ -12,7 +12,7 @@
                 <label class="custom-label" for="nombre">Nombre:</label>
             </div>
             <div class="div-square">
-                <button class="btn-primary" type="submit">Guardar</button>
+                <button class="btn-link" type="submit">Guardar</button>
             </div>
         </div>
     </form>

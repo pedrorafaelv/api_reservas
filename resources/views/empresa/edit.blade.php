@@ -62,7 +62,7 @@
                 <label class="custom-label" for="timeoff">Time Off:</label>
             </div>
             <div class="div-square">
-                <button type="submit" class= "btn-primary">Guardar</button>
+                <button type="submit" class= "btn-link">Guardar</button>
             </div>
         </div>
     </form>

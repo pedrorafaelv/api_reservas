@@ -22,7 +22,7 @@
                 <label for="email" class="custom-label">E-mail:</label>
             </div>
             <div class="div-square">
-                <button type="submit" class="btn-primary">Guardar</button>
+                <button type="submit" class="btn-link">Guardar</button>
             </div>
         </div>
     </form>
