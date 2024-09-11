@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Models\Empresa;
-use Validator;
+use Illuminate\Support\Facades\Validator;
+
+// use Validator;
 
 class EmpresaController extends Controller
 {

@@ -86,3 +86,5 @@ Route::get('empresas/{id}/tipoRecursos', function ($id){
 
     return $tiposRecursos;
 });
+
+Route::get('/calendar', [App\Http\Controllers\CalendarController::class, 'index'])->name('calendar.index');

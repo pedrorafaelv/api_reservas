@@ -29,14 +29,27 @@
                 <header class="bg-white dark:bg-gray-800 shadow">
                     <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
                         {{ $header }}
+
+                        {{ $slot }}
                     </div>
                 </header>
             @endif
 
             <!-- Page Content -->
             <main>
-                {{ $slot }}
             </main>
         </div>
     </body>
 </html>
+
+sistema binario
+0,1, 10,11,100,101, 110,111, 10000000  
+
+sistema octal
+0,1,2,3,4,5,6,7, 10, 11, 12, 13, 14, 15, 16, 17,20,21,22,23,24,25,26,27,30 
+
+sistema decimal
+0,1,2,3,4,5,6,7,8,9,10,11,12,13,14, 15,16, 17, 18, 19, 20
+
+sistema hexadecimal
+00,01,02,03,04,05,06,07,08,09,0A,0B,0C,0D,0E,0F, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 1A,1B,1C,1D,1E,1F,20

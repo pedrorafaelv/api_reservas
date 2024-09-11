@@ -61,7 +61,7 @@
                </tbody>
                <tfoot>
                    <tr class= "table-footer">
-                       <td class="col-span-4">
+                       <td class="col-span-12">
                            {{$empresas->links()}}
                        </td>
                    </tr>

@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 use App\Models\Reserva;
 use App\Models\Recurso;
@@ -9,7 +8,8 @@ use App\Models\estado;
 use App\Http\Requests\Reserva\PutRequest;
 use App\Http\Requests\Reserva\StoreRequest;
 use Carbon\Carbon;
-
+use DateTime;
+use DateTimeZone;
 class ReservaController extends Controller
 {
     /**
@@ -23,8 +23,67 @@ class ReservaController extends Controller
         $estados = Estado::pluck('nombre', 'id')->toArray();
         $recursos = Recurso::pluck('nombre', 'id')->toArray();
         $clientes = Cliente::pluck('nombre', 'id')->toArray();
+        $zonaHoraria = new DateTimeZone('UTC');
+        $today  = new DateTime('now',$zonaHoraria);
+        $dia =intval($today->format('d'));
+        $hora_inicio= '8:00:00';
+        $hora_fin = '23:59:59';
+        $lastDay = new DateTime('now', $zonaHoraria );
+        $lastDay->modify('+90 day');
+        $today->modify('-4 hours');
+        $f= $today->Format('Y-m-d');
+        $reserv = Reserva::where('fecha_inicio', '>=' ,$f )->orderBy('fecha_inicio', 'asc')->get()->toArray();
+        $nro_reservas = Reserva::where('fecha_inicio', '>=', $f)->count();
+        // $sql = str_replace_array('?', $reserv->getBindings(), $reserv->toSql());
+        // dd($reserv->toSql(), $reserv->getBindings());
+        $ev = array();
+        $events= array();
+        $reserva_hoy= false;
+        $hayReservas = false;
+        $cambioDia = false;
+        for ($i = 0; $i<= 30; $i++ ){
+            $fecha = "";
+            if (count($reserv)>0){
+                foreach($reserv as $reserva){
+                    $fecha = new DateTime($reserva['fecha_inicio']);
+                    if($fecha->format('Y-m-d') == $today->format('Y-m-d')){
+                        $hayReservas= true;
+                        $evento =array(
+                            'title' => $reserva['id'],
+                            'start' => $reserva['fecha_inicio'],
+                        );
+                        array_push($events, $evento);
+                        $firstIndex = array_key_first($reserv);
+                        unset($reserv[$firstIndex]);
+                    }
+                    else{
+                        if($fecha > $today){
+                            if ($hayReservas ==false){
+                                $evento=array(
+                                    'title' => 'Disponible',
+                                    'start' => $today->format('Y-m-d h:i:00'),
+                                    'end'  => $today->format('Y-m-d h:i:59'),
+                                );
+                                array_push($events, $evento);
+                            }
+                            $today->modify('+1 day');
+                            break;
+                        }
+                    }
+                }
+            }
+            if ($fecha ==''){
+                $evento=array(
+                    'title' => 'Disponible',
+                    'start' => $today->format('Y-m-d h:i:00'),
+                    'end'  => $today->format('Y-m-d h:i:59'),
+                );
+                array_push($events, $evento);
+                $today->modify('+1 day');
+            }
+        }
         $reservas = Reserva::paginate(10);
-        return view('reserva.index', compact('reservas', 'empresas', 'estados','recursos', 'clientes'));
+        return view('reserva.index', compact('reservas', 'empresas', 'estados','recursos', 'clientes', 'events'));
     }
 
     /**
@@ -79,7 +138,6 @@ class ReservaController extends Controller
      */
     public function edit(Reserva $reserva)
     {
-        // dd($reserva);
         $empresas = Empresa::pluck('nombre', 'id')->toArray();
         $estados = Estado::pluck('nombre', 'id')->toArray();
         $recursos = Recurso::pluck('nombre', 'id')->toArray();
@@ -104,12 +162,8 @@ class ReservaController extends Controller
         $recursos = Recurso::pluck('nombre', 'id')->toArray();
         $clientes = Cliente::pluck('nombre', 'id')->toArray();
         $reserva->update($request->validated());
-        // $request->session()->flash('status', 'Reserva actualizada exitosamente');
         return redirect()->route('reserva.show', ['empresas' => $empresas, 'estados'=>$estados,'recursos'=>$recursos ,'clientes'=>$clientes,'reserva'=>$reserva])
         ->with('status', 'Reserva actualizada exitosamente');
-
-        // return redirect('reserva.show', 'reserva');
-        //  return redirect()->route('reserva.create')
     }
 
     /**

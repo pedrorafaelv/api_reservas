@@ -6,8 +6,10 @@
     <a class= "btn-link" href="{{ route("industria.create")}}">Nueva Industria</a>
 </div>
 <div class="custom-container">
+
     <div class=" grid grid-cols-5">
-        <div class="col-start-3">
+               <div class="col-start-3">
+
 
             <table>
                 <thead>
@@ -51,3 +53,4 @@
     </div>
 </div>
 @endsection
+

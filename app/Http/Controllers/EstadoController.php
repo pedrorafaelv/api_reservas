@@ -46,7 +46,7 @@ class EstadoController extends Controller
 
         $estado = new Estado();
         $estado->fill($request->all());
-        print_r($request['nombre']);
+        // print_r($request['nombre']);
          $exito = $estado->save();
          if (!$exito) {
             // Si no se pudo guardar la empresa, redireccionar con un mensaje de error

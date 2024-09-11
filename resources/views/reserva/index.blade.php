@@ -1,12 +1,18 @@
 @extends('layout')
 @section('content')
-<div class="custom-container h-16">
+<div class="custom-container h-12">
     <a class="btn-link" href="{{ route("reserva.create")}}">Nueva Reserva</a>
 </div>
 
 <div class="custom-container">
+    <div class=" grid grid-cols-6">
+{{--  {{print_r($events)}}  --}}
+        <div id='calendar' class="col-span-3">
+            <p> calendar </p>
+        </div>
+    </div>
     <div class=" grid grid-cols-5">
-        <div class="col-start-2">
+        {{--  <div class="col-start-2">
 
             <table class="table-auto">
                 <thead>
@@ -76,6 +82,29 @@
                 </tfoot>
             </table>
         </div>
-    </div>
+    </div>  --}}
 </div>
 @endsection
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var calendarEl = document.getElementById('calendar');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+          initialView: 'dayGridMonth',
+          editable: true,
+          selectable: true,
+          events: @json($events),
+          dateClick: function(info) {
+            // Maneja el evento de clic en una fecha
+            alert('Date clicked: ' + info.dateStr);
+            // Puedes agregar lógica adicional aquí, como abrir un modal
+        },
+        eventClick: function(info) {
+            // Maneja el evento de clic en un evento
+            alert('Event clicked: ' + info.event.title);
+            // Puedes agregar lógica adicional aquí, como mostrar detalles del evento
+        }
+        });
+        calendar.render();
+      });
+
+</script>
